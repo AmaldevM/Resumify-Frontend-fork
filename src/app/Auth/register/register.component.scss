@@ -1,8 +1,8 @@
 .container {
   display: flex;
-  min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-  padding: 30px;
+  height: 50vh;
+  font-family: 'Outfit', sans-serif;
+  padding: 20px;
   flex-wrap: wrap;
 }
 
@@ -18,7 +18,7 @@
 
   .resume-img {
     width: 350px;
-    height:300px;
+    height: 300px;
     border-radius: 100px;
     max-width: 500px;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
@@ -27,7 +27,7 @@
 
 .right-side {
   flex: 1;
-  background-color: #222222;
+  background-color: #222;
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -36,126 +36,171 @@
   border-bottom-left-radius: 10px;
   color: white;
   min-height: 100vh;
-}
 
-h2 {
-  margin-bottom: 30px;
-  font-weight: 600;
-  text-align: center;
-}
+  h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-align: center;
+  }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
 
-label {
-  font-size: 17px;
-  margin-bottom: 5px;
-  margin-top: 10px;
-  margin-left: 35px;
-  color: #ddd;
-}
+    label {
+      font-size: 17px;
+      margin: 10px 0 5px 35px;
+      color: #ddd;
+    }
 
-input {
-  padding: 10px;
-  margin-bottom: 15px;
-  width: 600px;
-  align-self: center;
-  border-radius: 12px;
-  border: 1px solid #555;
-  background-color: #3a3a3a;
-  color: #fff;
-  height: 20px;
-}
-// input::placeholder {
-//    color: #ccc;
-// }
-input:focus {
-  outline: none;
-  border: 1px solid #4caf50;
-  background-color: #444;
-}
-small{
-    color: #ff6b6b;
-    font-size: 15px;
+    input {
+      width: 600px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #555;
+      background-color: #3a3a3a;
+      color: #fff;
+      height: 20px;
+      align-self: center;
+      margin-bottom: 15px;
+
+      &::placeholder {
+        color: #ccc;
+        font-size: 14px;
+        font-weight: 400;
+        opacity: 0.8;
+      }
+
+      &:focus {
+        outline: none;
+        border: 1px solid #4caf50;
+        background-color: #444;
+      }
+    }
+
+    .error {
+      color: #ff6b6b;
+      font-size: 15px;
+      margin-left: 30px;
+    }
+
+    .submit {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #3cb662;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      height: 40px;
+      width: 400px;
+      align-self: center;
+
+      &:hover {
+        background-color: #34a654;
+      }
+    }
+  }
+
+  .login-link,
+  p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+
+    a {
+      color: #3ea05d;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .hint {
+    color: gray;
+    font-size: 12px;
     margin-left: 30px;
-}
-.create-btn {
-  margin-top: 20px;
-  padding: 12px;
-  background-color: #3cb662;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 14px;
-  height: 40px;
-  width: 400px;
-  align-self: center;
-}
-.create-btn:hover{
-  background-color: #34a654;
-}
+  }
 
-.login-link {
-  margin: 15px 0;
-  font-size: 16px;
-  margin-left: 30px;
-  margin-top: 20px;
-}
-
-.login-link a {
-  color: #3ea05d;
-  text-decoration: none;
-  font-size: 16px;
-}
-
+/* Divider */
 .divider {
   text-align: center;
   margin: 20px 0;
-  color: #999;
+  color: #aaa;
 }
 
+/* Social Buttons */
 .social-buttons {
   display: flex;
   gap: 20px;
   width: 400px;
   align-self: center;
   margin-top: 10px;
-  a{
-    text-decoration: none;
-  }
 }
 
 .social-buttons button {
   flex: 1;
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #222222;
+  border: 1.5px solid #3cb662;
+  background-color: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: #fefefe;
+  color: white;
+  font-size: 14px;
 }
 
-.social-buttons button:hover{
-  background: #444444;
+.social-buttons button:hover {
+  color: #3a6d54;
+  background-color: rgba(255, 255, 255, 0.08);
 }
+
 
 .social-buttons img {
   width: 20px;
   height: 20px;
   object-fit: contain;
   border-radius: 20px;
-}
-.google-btn,.github-btn{
- font-size: 14px;
+  transition: transform 0.2s;
 }
 
 .social-buttons img:hover {
   transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .right-section {
+    padding: 20px;
+    min-height: auto;
+  }
+
+  .resume-img {
+    width: 60%;
+    border-radius: 16px;
+  }
+
+  .right-section input,
+  .right-section #submit,
+  .social-buttons {
+    width: 100%;
+  }
+
+  .toggle-icon {
+    right: 20px;
+  }
+}
 }

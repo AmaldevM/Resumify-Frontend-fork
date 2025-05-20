@@ -1,34 +1,45 @@
 <div class="container">
   <div class="left-section">
-
-
-    <img src="../../../../../Resumify/public/assets/images/il_340x270.4240695166_3kzk.jpg" alt="Resume" class="resume-img" />
-
-
-
-
+    <img
+      src="/assets/images/resume.jpg"
+      alt="resume image"
+      class="resume-img"
+    />
   </div>
 
   <div class="right-section">
-    <h2>Reset Your Password</h2>
-    <form [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmit()">
-      <label>Email</label>
-      <input
-        type="email"
-        formControlName="email"
-        placeholder="Enter your registered email"
-      />
-      <div class="error" *ngIf="email?.touched && email?.invalid">
-        <small *ngIf="email?.errors?.['required']">Email is required</small>
-        <small *ngIf="email?.errors?.['email']">Enter a valid email</small>
-      </div>
+    <div class="form">
+      <h2>Reset Your Password</h2>
+      <form [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmit()">
+        <!-- Email -->
+        <label>Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Enter your Email here"
+        />
+        <div class="error" *ngIf="email?.touched && email?.invalid">
+          <small *ngIf="email?.errors?.['required']">Email is required</small>
+          <small *ngIf="email?.errors?.['email']">Invalid email format</small>
+        </div>
 
-      <button type="submit" [disabled]="forgotPasswordForm.invalid">Send Reset Link</button>
-    </form>
+        <button id="submit" type="submit">Send Reset Link</button>
+      </form>
+    </div>
 
-    <p>
-      Remember your password?
-      <a href="/login">Go to Login</a>
-    </p>
+    <p>Remembered your password? <a href="/login">Login here</a></p>
+
+    <div class="divider">– OR –</div>
+
+    <div class="social-buttons">
+      <button class="go-btn">
+        <img src="assets/images/google.png" alt="Google" />
+        Sign in with Google
+      </button>
+      <button class="gi-btn">
+        <img src="assets/images/linkedin.png" alt="LinkedIn" />
+        Sign in with LinkedIn
+      </button>
+    </div>
   </div>
 </div>

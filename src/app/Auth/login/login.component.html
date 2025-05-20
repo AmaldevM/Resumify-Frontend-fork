@@ -1,47 +1,63 @@
 <div class="container">
   <div class="left-section">
-    <div class="up">
-      <img src="../../../../../Resumify/public/assets/images/Green and yellow template.jpeg" alt="Background" class="blob-img" />
-    </div>
-    <div class="down">
-      <img src="../../../../../Resumify/public/assets/images/il_340x270.4240695166_3kzk.jpg" alt="Resume" class="resume-img" />
-    </div>
+    <img
+      src="/assets/images/resume.jpg"
+      alt="resume image"
+      class="resume-img"
+    />
   </div>
 
   <div class="right-section">
-<div class="form">
-  <h2>Login in Your Account</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <label>Email</label>
-    <input type="email" formControlName="email" placeholder="Enter your Email here" />
-    <div class="error" *ngIf="email?.touched && email?.invalid">
-      <small *ngIf="email?.errors?.['required']">Email is required</small>
-      <small *ngIf="email?.errors?.['email']">Invalid email format</small>
+    <div class="form">
+      <h2>Login in Your Account</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Email -->
+        <label>Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Enter your Email here"
+        />
+        <div class="error" *ngIf="email?.touched && email?.invalid">
+          <small *ngIf="email?.errors?.['required']">Email is required</small>
+          <small *ngIf="email?.errors?.['email']">Invalid email format</small>
+        </div>
+        <!-- Password -->
+        <label>Password</label>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Enter your Password here"
+        />
+
+
+        <div class="error" *ngIf="password?.touched && password?.invalid">
+          <small *ngIf="password?.errors?.['required']"
+            >Password is required</small
+          >
+          <small *ngIf="password?.errors?.['minlength']"
+            >Minimum 6 characters required</small
+          >
+        </div>
+
+        <button id="submit" type="submit">Login</button>
+      </form>
     </div>
 
-    <label>Password</label>
-    <input type="password" formControlName="password" placeholder="Enter your Password here" />
-    <div class="error" *ngIf="password?.touched && password?.invalid">
-      <small *ngIf="password?.errors?.['required']">Password is required</small>
-      <small *ngIf="password?.errors?.['minlength']">Minimum 6 characters required</small>
-    </div>
+    <p>Don't have an account?<a href="/register">SignUp</a></p>
+    <p>Forgot your password? <a href="/forgot-password">Reset Password</a></p>
 
-    <button id="submit" type="submit">Login</button>
-  </form>
-</div>
-<p>Don't have an account?<a href="/register">SignUp</a></p>
+    <div class="divider">– OR –</div>
 
-    <p>Forgot your password? <a href="/forgotpass">Reset Password</a></p>
     <div class="social-buttons">
       <button class="go-btn">
-        <img src="assets/icons/icons8-google.svg" alt="Google" />
+        <img src="assets/images/google.png" alt="Google" />
         Sign up with Google
       </button>
       <button class="gi-btn">
-        <img src="assets/icons/icons8-github.svg" alt="GitHub" />
-        Sign up with GitHub
+        <img src="assets/images/linkedin.png" alt="GitHub" />
+        Sign up with LinkedIn
       </button>
     </div>
   </div>
-
 </div>

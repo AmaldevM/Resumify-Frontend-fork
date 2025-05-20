@@ -1,38 +1,69 @@
-
 <!-- <p>register works!</p> -->
 <div class="container">
   <div class="left-side">
-    <img src="/assets/images/resume.jpg" alt="resume image" class="resume-img">
+    <img
+      src="/assets/images/resume.jpg"
+      alt="resume image"
+      class="resume-img"
+    />
   </div>
 
   <div class="right-side">
-    <h2>Create your Free Account</h2>
-
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form">
+      <h2>Create your Free Account</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <label for="username">Username</label>
-        <input type="text" formControlName="username" id="username" placeholder="Enter Username here" />
+        <input
+          type="text"
+          formControlName="username"
+          id="username"
+          placeholder="Enter Username here"
+        />
         <div *ngIf="username?.touched && username?.invalid">
-            <small *ngIf="username?.errors?.['required']">Username is required</small>
-            <small *ngIf="username?.errors?.['minlength']">Minimum 3 characters required</small>
+          <small *ngIf="username?.errors?.['required']"
+            >Username is required</small
+          >
+          <small *ngIf="username?.errors?.['minlength']"
+            >Minimum 3 characters required</small
+          >
         </div>
 
         <label for="email">Email</label>
-        <input type="email" formControlName="email" id="email" placeholder="Enter your Email here" />
-        <div *ngIf="email?.touched && email?.invalid">
-            <small *ngIf="email?.errors?.['required']">Email is required</small>
-            <small *ngIf="email?.errors?.['email']">Invalid email format</small>
+        <input
+          type="email"
+          formControlName="email"
+          id="email"
+          placeholder="Enter your Email here"
+        />
+        <div class="error" *ngIf="email?.touched && email?.invalid">
+          <small *ngIf="email?.errors?.['required']">Email is required</small>
+          <small *ngIf="email?.errors?.['email']">Invalid email format</small>
         </div>
 
         <label for="password">Password</label>
-        <input type="password" formControlName="password" id="password" placeholder="Enter your Password here" />
-        <div *ngIf="password?.touched && password?.invalid">
-            <small *ngIf="password?.errors?.['required']">Password is required</small>
-            <small *ngIf="password?.errors?.['minlength']">Minimum 6 characters required</small>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your Password here"
+        />
+
+        <div class="error" *ngIf="password?.touched && password?.invalid">
+          <small *ngIf="password?.errors?.['required']"
+            >Password is required</small
+          >
+          <small *ngIf="password?.errors?.['minlength']"
+            >Minimum 6 characters required</small
+          >
+          <small *ngIf="password?.errors?.['pattern']">
+            Must contain at least one uppercase letter, one lowercase letter,
+            and one number.
+          </small>
         </div>
 
-        <button class="create-btn" type="submit">Create Account</button>
-    </form>
-
+        <button class="submit" type="submit">Create Account</button>
+      </form>
+    </div>
     <p class="login-link">
       Already have an account? <a href="/login">Log In</a>
     </p>
@@ -40,15 +71,14 @@
     <div class="divider">– OR –</div>
 
     <div class="social-buttons">
-      <a href="#s" target="_blank">
-        <button class="google-btn">
-          <img src="assets/images/google.png" alt="Google" /> Sign up with Google
+      <button class="go-btn">
+        <img src="assets/images/google.png" alt="Google" />
+        Sign up with Google
       </button>
-     </a>
-     <a href="#" target="_blank">
-        <button class="github-btn">
-          <img src="assets/images/GitHub.png" alt="GitHub" /> Sign up with GitHub
-        </button>
-      </a>
+      <button class="gi-btn">
+        <img src="assets/images/linkedin.png" alt="GitHub" />
+        Sign up with LinkedIn
+      </button>
     </div>
   </div>
+</div>

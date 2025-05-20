@@ -1,29 +1,21 @@
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card'; // <-- Add this
-import { FooterComponent } from "./footer/footer.component";
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HeroComponent } from "./hero/hero.component";
-
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    MatIconModule,
+  selector: 'app-hero',
+  imports: [MatIconModule,
     MatButtonModule,
-    MatCardModule,
-    FooterComponent,
-    HeroComponent,
-],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+    MatCardModule,],
+  templateUrl: './hero.component.html',
+  styleUrl: './hero.component.scss'
 })
-export class HomeComponent {
+export class HeroComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -46,4 +38,5 @@ export class HomeComponent {
     console.log('Navigating to /browse');
     this.router.navigate(['/browse']);
   }
+
 }

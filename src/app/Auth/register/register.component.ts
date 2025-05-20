@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http'; // ✅ Import this
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule], // ✅ Add here
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
@@ -21,22 +21,39 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+     password: ['', [Validators.required, Validators.minLength(6), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$')]]
+
     });
   }
 
-  onSubmit(): void {
-    if (this.registerForm.valid) {
-      this.auth.register(this.registerForm.value).subscribe({
-        next: res => {
-          this.router.navigate(['/login']);
-        },
-        error: err => {
-          console.error('Registration failed', err);
-        }
-      });
-    }
+onSubmit(): void {
+  if (this.registerForm.valid) {
+    console.log("Sending:", this.registerForm.value);
+    this.auth.register(this.registerForm.value).subscribe({
+      next: (res) => {
+        console.log("Registration response:", res);
+        alert('Registration successful! Please log in.');
+        this.router.navigate(['/login']);
+      },
+      error: (err: any) => {
+        console.error('Registration failed', err);
+        alert('Registration failed. Please try again.');
+      }
+    });
+  } else {
+    console.warn("Form invalid", this.registerForm.value);
   }
+}
+showPassword: boolean = false;
+
+togglePasswordVisibility() {
+  this.showPassword = !this.showPassword;
+}
+
+
+
+
+
 
   get username() {
     return this.registerForm.get('username');

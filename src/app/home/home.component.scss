@@ -1,150 +1,751 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
+@use "sass:color";
+// Color Palette
+$dark-bg: #0f0f0f;
+$mint-green: #30d158;
+$medium-gray: #434343;
+$text-gray: #ccc;
+$light-gray: #ddd;
+$accent-green: #2ecc71;
+$transition: all 0.3s ease;
 
-.home-container {
-  background-color: var(--dark-bg);
-  color: white;
-  min-height: 100vh;
-  padding-bottom: 2rem;
+// Design Tokens
+$border-radius: 12px;
+$box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+$section-spacing: 6rem;
+$card-padding: 2rem;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin card-style {
+  background: $dark-bg;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: $card-padding;
+  transition: $transition;
+  border: 1px solid rgba($mint-green, 0.1);
+}
+
+@mixin gradient-bg {
+  background: linear-gradient(135deg, $mint-green, $accent-green);
+}
+
+// Base Styles
+.resumify-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  color: $text-gray;
 }
 
 .content-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  padding: 4rem 0;
 }
 
-.hero-section {
-  text-align: center;
-  padding: 4rem 0 2rem;
-
- h1 span{
-  font-size: 4.5rem;
-  font-weight: 500;
-  line-height: 1.3;
-  margin-bottom: 1rem;
- margin-right: 0.4rem;
-
-  @include mat.elevation(2);
+section {
+  margin-bottom: $section-spacing;
+  position: relative;
 }
 
-.text-white {
-  color: white;
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 0;
+  color: $light-gray;
 }
 
-.text-green {
-  color: var(--green-accent);
+h2 {
+  font-size: 2.25rem;
 }
 
-  .subtitle {
-    font-size: 1.2rem;
-    color: var(--deep-green);
-    font-weight: 400;
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+p {
+  color: $text-gray;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+strong {
+  color: $light-gray;
+  font-weight: 600;
+}
+
+// Resume Parser Section
+.resume-parser-section {
+  .image-content {
+    @include flex-center;
+    flex-direction: column;
+  }
+
+  .resume-parse-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    width: 100%;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
-.features-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin: 4rem 0;
+.resume-card {
+  @include card-style;
+  max-width: 600px;
+  width: 100%;
 
-  .feature-card {
-    // background: var(--deep-green);
-    border-radius: 8px;
-    padding: 2rem;
-    transition: all 0.2s ease;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, $medium-gray, $dark-bg);
+    margin: 0 auto 1.5rem;
+    border: 3px solid rgba($mint-green, 0.1);
+  }
+
+  h3 {
     text-align: center;
+    margin-bottom: 1.5rem;
+    color: $mint-green;
+  }
+
+  .section {
+    margin-bottom: 2rem;
+
+    strong {
+      display: block;
+      margin-bottom: 0.75rem;
+      color: $accent-green;
+      font-size: 1.1rem;
+    }
+
+    &.two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+
+      @media (max-width: 576px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  .placeholder-line {
+    height: 14px;
+    background: linear-gradient(90deg, $medium-gray 0%, $dark-bg 50%, $medium-gray 100%);
+    background-size: 200% 100%;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite linear;
+
+    &.short {
+      width: 70%;
+    }
+  }
+}
+
+.parsed-info-card {
+  @include card-style;
+  max-width: 600px;
+  width: 100%;
+
+  h4 {
+    color: $mint-green;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid rgba($mint-green, 0.1);
+  }
+
+  table {
+    width: 100%;
+    margin-bottom: 2rem;
+
+    tr td {
+      padding: 0.5rem 0;
+      vertical-align: top;
+
+      &:first-child {
+        width: 40%;
+        color: $text-gray;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+
+    span {
+      background-color: rgba($mint-green, 0.1);
+      color: $mint-green;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+  }
+}
+
+// ATS Section
+.ats-container {
+  .ats-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ats-column {
+    @include card-style;
+    padding: 2.5rem;
 
     &:hover {
       transform: translateY(-5px);
-      @include mat.elevation(4);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
     }
 
-    .feature-icon {
-      background-color: var(--deep-green);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
+    .ats-heading {
+      color: $accent-green;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-left: 1.5rem;
 
-      mat-icon {
-        color: var(--light-mint);
-        font-size: 30px;
-        width: 30px;
-        height: 30px;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.25em;
+        height: 1em;
+        width: 6px;
+        background: $mint-green;
+        border-radius: 3px;
       }
     }
 
+    .ats-text {
+      color: $text-gray;
+    }
+  }
+
+  .ats-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .atsb1 {
+    @include card-style;
+    @include gradient-bg;
+    color: $dark-bg;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .ats-bottom-title {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: $dark-bg;
+    }
+
+    .ats-bottom-text {
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .ats-btn {
+      background-color: $dark-bg;
+      color: $mint-green;
+      padding: 1rem 2rem;
+      border-radius: $border-radius;
+      font-weight: 600;
+      font-size: 1.1rem;
+      align-self: flex-start;
+      transition: $transition;
+
+      &:hover {
+        background-color: rgba($dark-bg, 0.9);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .atsb2 {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .ats-card {
+    @include card-style;
+    padding: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: $mint-green;
+      z-index: -1;
+    }
+
+    &-contact::before { background: $mint-green; }
+    &-experience::before { background: $accent-green; }
+    &-skills::before { background: $mint-green; }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+
+// Resume ATS Container
+.resume-ats-container {
+  .resume-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
+    .resume-step {
+      @include card-style;
+      padding: 2.5rem;
+
+      .highlight-heading {
+        color: $accent-green;
+        margin-bottom: 1.5rem;
+        position: relative;
+
+        &::after {
+          content: "";
+          display: block;
+          width: 60px;
+          height: 4px;
+          background: $mint-green;
+          margin-top: 1rem;
+          border-radius: 2px;
+        }
+      }
+
+      p {
+        position: relative;
+        padding-left: 1.5rem;
+
+        &::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          color: $mint-green;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .resume-format-box {
+    @include card-style;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, $mint-green, $accent-green);
+    }
+
+    .resume-format-left {
+      h1 {
+        color: $accent-green;
+        margin-bottom: 1.5rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+    }
+
+    .resume-format-right {
+      .resume-format-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+
+        li {
+          padding: 1rem 1.5rem;
+          background-color: rgba($mint-green, 0.05);
+          border-radius: 8px;
+          font-weight: 500;
+          transition: $transition;
+
+          &:hover {
+            background-color: rgba($mint-green, 0.1);
+            transform: translateX(5px);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Resume Features
+.resume-features {
+  .heading {
+    text-align: center;
+    margin-bottom: 5rem;
+
+    h2 {
+      font-size: 2.5rem;
+      color: $accent-green;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: $mint-green;
+        margin: 1.5rem auto 0;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-bottom: 6rem;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+
+    .feature {
+      @include card-style;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      padding-top: 4rem;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        background-color: rgba($mint-green, 0.1);
+        border-radius: 50%;
+      }
+
+      h3 {
+        color: $mint-green;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+      }
+
+      p {
+        color: $text-gray;
+      }
+    }
+  }
+
+  .reviews {
+    text-align: center;
+    margin-top: 6rem;
+
     h3 {
-      color: var(--light-mint);
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.75rem;
+      color: $accent-green;
+    }
+
+    .review-summary {
+      margin-bottom: 3rem;
+
+      .stars {
+        font-size: 2rem;
+        color: #ffc107;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        color: $text-gray;
+        font-size: 1.1rem;
+      }
+    }
+
+    .review-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+
+      @media (max-width: 992px) {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      @media (max-width: 576px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .review-card {
+      @include card-style;
+      text-align: left;
+      padding: 2rem;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 1.5rem;
+        left: 2rem;
+        font-size: 4rem;
+        color: rgba($mint-green, 0.1);
+        font-family: serif;
+        line-height: 1;
+      }
+
+      .stars {
+        color: #ffc107;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      h4 {
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+      }
+
+      p {
+        color: $text-gray;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+      }
+
+      span {
+        font-size: 0.85rem;
+        color: color.adjust($text-gray, $lightness: 10%);
+        font-style: italic;
+      }
+    }
+  }
+}
+
+// Contact Section
+.contact-section {
+  .contact-header {
+    text-align: center;
+    margin-bottom: 5rem;
+
+    h2 {
+      font-size: 2.5rem;
+      color: $accent-green;
+      margin-bottom: 1.5rem;
     }
 
     p {
-      color: rgba(255, 255, 255, 0.8);
-      line-height: 1.6;
+      color: $text-gray;
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+  }
+
+  .contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .contact-form {
+    @include card-style;
+    padding: 3rem;
+
+    .form-group {
+      margin-bottom: 2rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.75rem;
+        font-weight: 500;
+        color: $light-gray;
+      }
+
+      input, textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid $medium-gray;
+        border-radius: $border-radius;
+        font-family: inherit;
+        transition: $transition;
+        font-size: 1rem;
+        background-color: color.adjust($dark-bg, $lightness: 5%);
+        color: $text-gray;
+
+        &:focus {
+          outline: none;
+          border-color: $mint-green;
+          box-shadow: 0 0 0 3px rgba($mint-green, 0.1);
+        }
+      }
+
+      textarea {
+        min-height: 180px;
+        resize: vertical;
+      }
+    }
+
+    button {
+      @include gradient-bg;
+      color: $dark-bg;
+      padding: 1rem 2rem;
+      border-radius: $border-radius;
+      width: 100%;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: $transition;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .contact-info {
+    @include card-style;
+    padding: 3rem;
+    background-color: color.adjust($dark-bg, $lightness: 5%);
+
+
+    h3 {
+      color: $accent-green;
+      margin-bottom: 1.5rem;
+      font-size: 1.75rem;
+    }
+
+    p {
+      margin-bottom: 2rem;
+      color: $text-gray;
+    }
+
+    .extra-info {
+      margin: 3rem 0;
+      padding: 2rem 0;
+      border-top: 1px solid $medium-gray;
+      border-bottom: 1px solid $medium-gray;
+
+      h4 {
+        color: $light-gray;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      p {
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+      }
+    }
+
+    strong {
+      color: $light-gray;
     }
   }
 }
 
-.cta-section {
-  text-align: center;
-  margin: 3rem 0;
-
-  .upload-btn {
-    background-color: var(--green-accent);
-    color: white;
-    padding: 0.8rem 2.5rem;
-    font-size: 1.1rem;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: var(--deep-green);
-    }
-  }
+// Animations
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
+// Responsive Adjustments
 @media (max-width: 768px) {
-  .hero-section {
-    padding: 3rem 0;
-
-    h1 {
-      font-size: 2rem;
-    }
+  .content-wrapper {
+    padding: 2rem 0;
   }
 
-  .features-section {
-    grid-template-columns: 1fr;
+  section {
+    margin-bottom: 4rem;
   }
-}
-
-.how-it-works {
-  background-color: #181818; // Dark Background
-  color: white;
-  max-width: 1000px;
-  margin: 3rem auto;
-  padding: 2rem;
-  border-radius: 8px;
 
   h2 {
-    color: #d0eed8; // Light Mint
+    font-size: 1.75rem;
   }
 
-  .subtitle {
-    color: white;
-  }
-
-  .step {
-    background-color: #434343; // Medium Gray
-margin: 20px;
-padding: 0 40px;
-    h3 {
-      color: #3cb662; // Green Accent
-    }
+  h3 {
+    font-size: 1.5rem;
   }
 }
