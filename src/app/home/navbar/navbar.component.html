@@ -13,8 +13,9 @@
   <a mat-button routerLink="/">Home</a>
   <a mat-button routerLink="/upload" class="upload-btn" (click)="onUploadResumeClick()">Upload Resume</a>
   <a mat-button routerLink="/parsedresumes">Parsed Resume</a>
-  <a mat-button routerLink="/about">About</a>
-  <a mat-button routerLink="/contact">Contact</a>
+  <a mat-button [routerLink]="['/home']" fragment="contact-section">About</a>
+  <a mat-button [routerLink]="['/home']" fragment="reviews">Contact</a>
+
   <a *ngIf="!auth.isLoggedIn()" mat-button routerLink="/login" class="auth-btn">Login</a>
   <a *ngIf="!auth.isLoggedIn()" mat-button routerLink="/register" class="auth-btn">Register</a>
   <a *ngIf="auth.isLoggedIn()" mat-button (click)="logout()">Logout</a>

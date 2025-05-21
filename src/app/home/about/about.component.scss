@@ -1,0 +1,191 @@
+@use "@angular/material" as mat;
+@use "sass:color";
+// Your Color Palette
+$dark-bg: #0f0f0f;
+$mint-green: #30d158;
+$medium-gray: #434343;
+$text-gray: #ccc;
+$light-gray: #ddd;
+$accent-green: #2ecc71;
+$transition: all 0.3s ease;
+
+// Derived Colors using modern color functions
+$dark-green: color.adjust($accent-green, $lightness: -15%);
+$light-accent: color.adjust($accent-green, $lightness: 10%);
+$card-bg: color.adjust($dark-bg, $lightness: 5%);
+
+// Mixins
+@mixin card-style {
+  background: $card-bg;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid $medium-gray;
+  transition: $transition;
+}
+
+@mixin section-padding {
+  padding: 2rem 1rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+  }
+}
+
+// Base Styles
+body {
+  background: $dark-bg;
+  color: $text-gray;
+}
+
+// About Us Section - Fixed mixed declarations
+.about-us {
+  background: linear-gradient(to bottom, color.adjust($dark-bg, $lightness: 5%), $dark-bg);
+  position: relative;
+  @include section-padding;
+
+  .about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .about-mission {
+    .section-title {
+      font-size: 3rem;
+      color: $light-gray;
+      margin-bottom: 1.5rem;
+      position: relative;
+
+      &::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, $mint-green, $accent-green);
+        margin-top: 1.5rem;
+        border-radius: 2px;
+      }
+    }
+
+    .section-subtitle {
+      font-size: 1.25rem;
+      color: $text-gray;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .mission-stats {
+      display: flex;
+      gap: 3rem;
+      margin: 3rem 0;
+
+      @media (max-width: 576px) {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .stat {
+        .stat-number {
+          font-size: 2.5rem;
+          font-weight: 800;
+          color: $accent-green;
+          display: block;
+          line-height: 1;
+          margin-bottom: 0.5rem;
+          text-shadow: 0 0 10px rgba($accent-green, 0.3);
+        }
+
+        .stat-label {
+          color: $text-gray;
+          font-size: 0.95rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .about-image {
+    @include card-style;
+    position: relative;
+    overflow: hidden;
+    transform: perspective(1000px) rotateY(-5deg);
+    transition: transform 0.5s ease;
+
+    &:hover {
+      transform: perspective(1000px) rotateY(0deg);
+    }
+
+    .ai-dashboard-img {
+      width: 100%;
+      display: block;
+      opacity: 0.9;
+    }
+
+    .image-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba($dark-bg, 0.9), transparent);
+      color: white;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .caption-icon {
+        font-size: 1.8rem;
+        color: $mint-green;
+        flex-shrink: 0;
+      }
+
+      p {
+        margin: 0;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        color: $light-gray;
+      }
+    }
+  }
+}
+
+// CTA Button
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(to right, $mint-green, $accent-green);
+  color: $dark-bg;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  transition: $transition;
+  box-shadow: 0 4px 15px rgba($accent-green, 0.4);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background: linear-gradient(to right, color.adjust($mint-green, $lightness: 5%), color.adjust($accent-green, $lightness: 5%));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba($accent-green, 0.6);
+  }
+
+  &::after {
+    content: "→";
+    transition: transform 0.3s ease;
+  }
+
+  &:hover::after {
+    transform: translateX(3px);
+  }
+}

@@ -12,7 +12,7 @@ $transition: all 0.3s ease;
 // Design Tokens
 $border-radius: 12px;
 $box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-$section-spacing: 6rem;
+$section-spacing: 3rem;
 $card-padding: 2rem;
 
 // Mixins
@@ -45,7 +45,7 @@ $card-padding: 2rem;
 }
 
 .content-wrapper {
-  padding: 4rem 0;
+  padding: 2rem 0;
 }
 
 section {
@@ -212,7 +212,6 @@ strong {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
-    margin-bottom: 4rem;
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
@@ -449,7 +448,6 @@ strong {
 .resume-features {
   .heading {
     text-align: center;
-    margin-bottom: 5rem;
 
     h2 {
       font-size: 2.5rem;
@@ -474,7 +472,7 @@ strong {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
-    margin-bottom: 6rem;
+    margin-bottom: 2rem;
 
     @media (max-width: 992px) {
       grid-template-columns: 1fr 1fr;
@@ -597,11 +595,13 @@ strong {
   }
 }
 
+
+
 // Contact Section
 .contact-section {
   .contact-header {
     text-align: center;
-    margin-bottom: 5rem;
+    margin-top: 2rem;
 
     h2 {
       font-size: 2.5rem;
@@ -619,6 +619,7 @@ strong {
 
   .contact-content {
     display: grid;
+    margin-top: 2rem;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
 
@@ -642,7 +643,7 @@ strong {
       }
 
       input, textarea {
-        width: 100%;
+        width: 90%;
         padding: 1rem;
         border: 1px solid $medium-gray;
         border-radius: $border-radius;
@@ -660,7 +661,7 @@ strong {
       }
 
       textarea {
-        min-height: 180px;
+        min-height: 100px;
         resize: vertical;
       }
     }
@@ -686,7 +687,7 @@ strong {
 
   .contact-info {
     @include card-style;
-    padding: 3rem;
+    padding: 1rem;
     background-color: color.adjust($dark-bg, $lightness: 5%);
 
 
@@ -725,6 +726,61 @@ strong {
   }
 }
 
+
+// Trusted By Section
+.trusted-by {
+  text-align: center;
+  padding: 1rem 2.5rem;
+  background-color: $dark-bg;
+  color: $light-gray;
+  margin: 0 auto;
+
+  p {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    color: $medium-gray;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .company-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+
+    img {
+      height: 40px;
+      max-width: 120px;
+      object-fit: contain;
+      filter: grayscale(100%) brightness(0.8);
+      opacity: 0.8;
+      transition: all 0.3s ease;
+
+      &:hover {
+        filter: none;
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .company-logos {
+      gap: 2rem;
+
+      img {
+        height: 32px;
+        max-width: 100px;
+      }
+    }
+  }
+}
+
+
+
 // Animations
 @keyframes shimmer {
   0% { background-position: -200% 0; }
@@ -734,7 +790,7 @@ strong {
 // Responsive Adjustments
 @media (max-width: 768px) {
   .content-wrapper {
-    padding: 2rem 0;
+    padding: 0 0;
   }
 
   section {
