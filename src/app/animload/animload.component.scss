@@ -1,0 +1,54 @@
+
+
+.loader-container {
+  text-align: center;
+  margin-top: 200px;
+  font-family: 'Segoe UI', sans-serif;
+
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: white;
+  font-size: 24px;
+  margin: 0;
+}
+
+.title {
+  color: #2f6b43;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 10px;
+  background-color: #eee;
+  margin: 30px auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background-color: #1d6438;
+  animation: loadBar 9s linear forwards;
+  border-radius: 10px;
+}
+
+@keyframes loadBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

@@ -6,6 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UploadService {
+
+
+  // deleteAllResumes(userId: number) {
+  //   throw new Error('Method not implemented.');
+  // }
+
+  deleteAllResumes(userId: number): Observable<any> {
+    return this.http.delete<any>(`/api/resumes/user/${userId}`);
+  }
+
   private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient,) { }
@@ -15,8 +25,6 @@ export class UploadService {
     responseType: 'text'  // ✅ treat response as plain text
   });
 }
-
-
   getUserResumes(userId: number) {
     return this.http.get<any[]>(`${this.baseUrl}/resumesByUserId?userId=${userId}`);
   }

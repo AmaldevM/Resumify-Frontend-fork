@@ -12,18 +12,21 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-        {
-          path: 'upload',
-          loadComponent: () => import('./browseresume/browseresume.component').then(m => m.BrowseResumeComponent),
-          canActivate: [AuthGuard]
-        },
-        { path: 'enhance', component: ResumeEnhancingComponent },
-              {
-                path: 'parsedresumes',
-                loadComponent: () => import('./parsedresume/parsedresume.component').then(m => m.ParsedresumeComponent),
-                canActivate: [AuthGuard]
-              },
+  {
+    path: 'upload',
+    loadComponent: () => import('./browseresume/browseresume.component').then(m => m.BrowseResumeComponent),
+    canActivate: [AuthGuard]
+  },
+  { path: 'enhance', component: ResumeEnhancingComponent },
+  {
+    path: 'parsedresumes',
+    loadComponent: () => import('./parsedresume/parsedresume.component').then(m => m.ResumeParserComponent),
+    canActivate: [AuthGuard]
+  },
   { path: 'selectedfiles', component: SelectedFilesComponent },
   { path: 'forgot-password', component: ForgotpassComponent },
   { path: '**', redirectTo: '' },
+  { path: 'loading', loadComponent: () => import('./loading/loading.component').then(m => m.LoadingComponent) },
+  { path: 'animload', loadComponent: () => import('./animload/animload.component').then(m => m.AnimLoadingComponent) },
+
 ];

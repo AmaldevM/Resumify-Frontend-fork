@@ -1,50 +1,81 @@
-<div class="topbar">
-  <div class="logo">RESUMIFY</div>
 
-  <div class="search-area">
-    <input type="text" placeholder="Search" />
-    <button class="search-icon"><i class="fa fa-search"></i></button>
-    <button class="sort-btn">Sort</button>
-  </div>
 
-  <div class="user-profile">
-    <span class="username">nua.mee</span>
-    <div class="user-icon">
-      <i class="fa fa-user"></i>
+
+<div class="parser-container">
+  <aside class="sidebar">
+    <h3>Uploaded Resumes</h3>
+    <div class="resume-list">
+      <div class="resume-item" *ngFor="let resume of resumes">
+        <img src="Resumify/public/assets/icons/pdf.png" alt="PDF" />
+        <span>{{ resume.name }}-cv.pdf</span>
+      </div>
     </div>
-  </div>
+   <div class="upload-box" >
+  <p>Click here to <strong>upload your file</strong> or drag</p>
+  <input
+    #fileInput
+    type="file"
+    accept="application/pdf"
+    (change)="onFileSelected($event)"
+    style="display: none"
+  />
 </div>
 
-<div class="container">
-  <div class="header">
-    <h2>Parsed Resume</h2>
-    <div class="search-filter">
-      <input type="text" placeholder="Search" />
-      <button class="filter-btn">Filter</button>
-      <button class="add-btn">Add New</button>
+  </aside>
+
+  <main class="main-content">
+<div class="controls">
+  <input type="text" [(ngModel)]="searchText" placeholder="Search by name or skill..." />
+
+  <!-- Sort Button -->
+  <div class="dropdown-wrapper">
+    <button (click)="toggleSortDropdown()">Sort</button>
+    <ul *ngIf="showSortDropdown" class="dropdown">
+      <li (click)="setExperienceRange('0-1')">0 - 1 years</li>
+      <li (click)="setExperienceRange('1-2')">1 - 2 years</li>
+      <li (click)="setExperienceRange('2-3')">2 - 3 years</li>
+      <li (click)="setExperienceRange('3-5')">3 - 5 years</li>
+      <li (click)="setExperienceRange('5+')">5+ years</li>
+    </ul>
+  </div>
+
+  <!-- Filter Button -->
+  <div class="dropdown-wrapper">
+    <button (click)="toggleFilterDropdown()">Filter</button>
+    <div *ngIf="showFilterDropdown" class="dropdown">
+      <input type="text" [(ngModel)]="selectedSkill" (blur)="applySkillFilter(selectedSkill)" placeholder="Enter skill" />
     </div>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Candidate</th>
-        <th>Skills</th>
-        <th>Experience</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let resume of resumes">
-        <td>{{ resume.id }}</td>
-        <td>{{ resume.name }}</td>
-        <td>
-          <span class="skill-tag" *ngFor="let skill of resume.skills">{{ skill }}</span>
-        </td>
-        <td>{{ resume.experience }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <button class="delete-all" (click)="deleteAll()">clear All</button>
+</div>
 
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone number</th>
+          <th>Email</th>
+          <th>Skills</th>
+          <th>Experience</th>
+          <th></th>
+        </tr>
+      </thead>
+<tbody>
+  <tr *ngFor="let resume of filteredResumes; let i = index">
+    <td>{{ resume.name }}</td>
+    <td>{{ resume.phoneNumber }}</td>
+    <td>{{ resume.email }}</td>
+    <td>
+      <span *ngFor="let skill of resume.skills" class="tag">{{ skill }}</span>
+    </td>
+    <td>{{ resume.yearsOfExperience }} years</td>
+<td>
+  <i class="fa fa-trash delete-icon" (click)="deleteResume(i)"></i>
+</td>
+  </tr>
+</tbody>
 
+    </table>
+  </main>
 </div>
