@@ -6,6 +6,10 @@ import { Observable, tap, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  getRole(): string {
+    return localStorage.getItem('userRole') || '';
+  }
+
   private apiUrl = 'http://localhost:8080/api/auth';
 
   // 🟢 BehaviorSubject to track login status
