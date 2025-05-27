@@ -6,12 +6,14 @@
     <h3>Uploaded Resumes</h3>
     <div class="resume-list">
       <div class="resume-item" *ngFor="let resume of resumes">
-        <img src="Resumify/public/assets/icons/pdf.png" alt="PDF" />
+        <img src="assets/icons/pdf.png" alt="PDF" />
         <span>{{ resume.name }}-cv.pdf</span>
       </div>
     </div>
-   <div class="upload-box" >
+<div class="upload-box" (click)="triggerFileUpload()">
   <p>Click here to <strong>upload your file</strong> or drag</p>
+
+  <!-- Hidden file input -->
   <input
     #fileInput
     type="file"
@@ -39,13 +41,35 @@
     </ul>
   </div>
 
-  <!-- Filter Button -->
-  <div class="dropdown-wrapper">
-    <button (click)="toggleFilterDropdown()">Filter</button>
-    <div *ngIf="showFilterDropdown" class="dropdown">
-      <input type="text" [(ngModel)]="selectedSkill" (blur)="applySkillFilter(selectedSkill)" placeholder="Enter skill" />
+<!-- Filter Button -->
+<div class="dropdown-wrapper">
+  <button (click)="toggleFilterDropdown()">Filter</button>
+
+  <div *ngIf="showFilterDropdown" class="dropdown">
+    <input
+      type="text"
+      [(ngModel)]="skillSearch"
+      (input)="onSkillSearch()"
+      placeholder="Search skill..."
+      class="skill-input"
+    />
+
+    <!-- Suggested skills -->
+    <ul *ngIf="filteredSkillOptions.length > 0" class="suggestions">
+      <li *ngFor="let skill of filteredSkillOptions" (click)="addSkill(skill)">
+        {{ skill }}
+      </li>
+    </ul>
+
+    <!-- Selected skills as chips -->
+    <div class="chip-container">
+      <span *ngFor="let skill of selectedSkills" class="chip">
+        {{ skill }}
+        <button class="remove-btn" (click)="removeSkill(skill)">×</button>
+      </span>
     </div>
   </div>
+</div>
 
   <button class="delete-all" (click)="deleteAll()">clear All</button>
 </div>

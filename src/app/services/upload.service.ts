@@ -25,8 +25,11 @@ export class UploadService {
     responseType: 'text'  // ✅ treat response as plain text
   });
 }
+
+
   getUserResumes(userId: number) {
     return this.http.get<any[]>(`${this.baseUrl}/resumesByUserId?userId=${userId}`);
   }
+
 
 }

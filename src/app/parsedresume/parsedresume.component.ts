@@ -5,41 +5,45 @@ import { UploadService } from '../services/upload.service';
 
 @Component({
   selector: 'app-resume-parser',
-  imports:[FormsModule,NgIf,NgFor],
-    standalone: true,
+  standalone: true,
+  imports: [FormsModule, NgIf, NgFor],
   templateUrl: './parsedresume.component.html',
   styleUrl: './parsedresume.component.scss'
 })
 export class ParsedresumeComponent implements OnInit {
-    @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-
-  triggerFileInput(): void {
-    this.fileInput.nativeElement.click();
-  }
+  @ViewChild('fileInput') fileInputRef!: ElementRef<HTMLInputElement>;
 
   resumes: any[] = [];
-  searchText = '';
-  selectedExperienceRange = '';
-  selectedSkill = '';
+  searchText: string = '';
+  selectedExperienceRange: string = '';
+  selectedSkill: string = '';
+  showSortDropdown: boolean = false;
+  showFilterDropdown: boolean = false;
 
-  showSortDropdown = false;
-  showFilterDropdown = false;
+  // 🔽 Skill filtering state
+  skillSearch: string = '';
+  allSkills: string[] = [];
+  filteredSkillOptions: string[] = [];
+  selectedSkills: string[] = [];
 
   constructor(private uploadService: UploadService) {}
 
   ngOnInit(): void {
+    this.fetchResumes();
+  }
+
+  fetchResumes(): void {
     const userIdStr = localStorage.getItem('userId');
-    if (!userIdStr) {
-      alert('User not logged in.');
-      return;
-    }
+    if (!userIdStr) return;
+
     const userId = parseInt(userIdStr, 10);
     this.uploadService.getUserResumes(userId).subscribe({
-      next: (resumes) => {
-          this.loadResumes();
-
+      next: (resumes: any[]) => {
         this.resumes = resumes;
-        console.log('Parsed resumes:', this.resumes);
+        console.log('Fetched resumes:', this.resumes);
+
+        const allSkills = resumes.flatMap((r: any) => r.skills || []);
+        this.allSkills = Array.from(new Set(allSkills.map((s: string) => s.trim().toLowerCase())));
       },
       error: (err) => {
         console.error('Failed to fetch resumes', err);
@@ -47,34 +51,48 @@ export class ParsedresumeComponent implements OnInit {
     });
   }
 
-  toggleSortDropdown() {
+  toggleSortDropdown(): void {
     this.showSortDropdown = !this.showSortDropdown;
     this.showFilterDropdown = false;
   }
 
-  toggleFilterDropdown() {
+  toggleFilterDropdown(): void {
     this.showFilterDropdown = !this.showFilterDropdown;
     this.showSortDropdown = false;
   }
 
-  setExperienceRange(range: string) {
+  setExperienceRange(range: string): void {
     this.selectedExperienceRange = range;
     this.showSortDropdown = false;
   }
 
-  applySkillFilter(skill: string) {
-    this.selectedSkill = skill.toLowerCase();
-    this.showFilterDropdown = false;
+  onSkillSearch(): void {
+    const search = this.skillSearch.toLowerCase();
+    this.filteredSkillOptions = this.allSkills.filter(
+      skill => skill.includes(search) && !this.selectedSkills.includes(skill)
+    );
   }
 
-  get filteredResumes() {
-    return this.resumes.filter(resume => {
-      // Filter by search text
-      const matchesSearch = resume.name?.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        resume.skills?.some((skill: string) => skill.toLowerCase().includes(this.searchText.toLowerCase()));
+  addSkill(skill: string): void {
+    this.selectedSkills.push(skill);
+    this.skillSearch = '';
+    this.filteredSkillOptions = [];
+  }
 
-      // Filter by experience range
-      const exp = resume.yearsOfExperience;
+  removeSkill(skill: string): void {
+    this.selectedSkills = this.selectedSkills.filter(s => s !== skill);
+  }
+
+  get filteredResumes(): any[] {
+    return this.resumes.filter(resume => {
+      const name = resume.name?.toLowerCase() || '';
+      const resumeSkills: string[] = (resume.skills || []).map((s: string) => s.toLowerCase());
+      const exp: number = resume.yearsOfExperience || 0;
+
+      const matchesSearch =
+        name.includes(this.searchText.toLowerCase()) ||
+        resumeSkills.some(skill => skill.includes(this.searchText.toLowerCase()));
+
       let matchesExperience = true;
       switch (this.selectedExperienceRange) {
         case '0-1':
@@ -94,88 +112,73 @@ export class ParsedresumeComponent implements OnInit {
           break;
       }
 
-      // Filter by selected skill
-      const matchesSkill = this.selectedSkill
-        ? resume.skills?.some((skill: string) => skill.toLowerCase().includes(this.selectedSkill))
-        : true;
+      const matchesSkills = this.selectedSkills.length === 0
+        ? true
+        : this.selectedSkills.every(skill => resumeSkills.includes(skill));
 
-      return matchesSearch && matchesExperience && matchesSkill;
+      return matchesSearch && matchesExperience && matchesSkills;
     });
   }
 
-  deleteResume(index: number) {
+  deleteResume(index: number): void {
     this.resumes.splice(index, 1);
   }
 
-
-
-  //  Function to Clear All Resumes From Backend
-deleteAll() {
-  const userIdStr = localStorage.getItem('userId');
-  if (!userIdStr) {
-    alert('User not logged in.');
-    return;
-  }
-  const userId = parseInt(userIdStr, 10);
-
-  if (!confirm("Are you sure you want to delete all resumes?")) return;
-
-  this.uploadService.deleteAllResumes(userId).subscribe({
-    next: (response: any) => {
-      console.log('Backend deleted:', response);
-      this.resumes = []; // Clear frontend too
-      alert("All resumes deleted successfully.");
-    },
-    error: (error: any) => {
-      console.error('Delete all failed:', error);
-      alert("Failed to delete resumes.");
+  deleteAll(): void {
+    const userIdStr = localStorage.getItem('userId');
+    if (!userIdStr) {
+      alert('User not logged in.');
+      return;
     }
-  });
+    const userId = parseInt(userIdStr, 10);
 
-}
+    if (!confirm("Are you sure you want to delete all resumes?")) return;
 
-loadResumes() {
-  const userId = parseInt(localStorage.getItem('userId')!, 10);
-  this.uploadService.getUserResumes(userId).subscribe({
-    next: (resumes) => {
-      this.resumes = resumes;
-    },
-    error: (err) => {
-      console.error('Failed to load resumes:', err);
-    }
-  });
-}
-
-
-onFileSelected(event: Event): void {
-  const file = (event.target as HTMLInputElement).files?.[0];
-  if (!file) return;
-
-  if (file.type !== 'application/pdf') {
-    alert('Please upload a PDF file.');
-    return;
+    this.uploadService.deleteAllResumes(userId).subscribe({
+      next: () => {
+        this.resumes = [];
+        alert("All resumes deleted successfully.");
+      },
+      error: (error) => {
+        console.error('Delete all failed:', error);
+        alert("Failed to delete resumes.");
+      }
+    });
   }
 
-  const userIdStr = localStorage.getItem('userId');
-  if (!userIdStr) {
-    alert('User not logged in.');
-    return;
+  triggerFileUpload(): void {
+    this.fileInputRef.nativeElement.click();
   }
-  const userId = parseInt(userIdStr, 10);
 
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append('userId', userId.toString());
+  onFileSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
 
-  this.uploadService.uploadResume(userId, formData).subscribe({
-    next: () => {
-      console.log('Resume uploaded!');
-      this.loadResumes();  // ✅ fetch latest list from server
-    },
-    error: (error) => {
-      console.error('Upload failed:', error);
-      alert('Failed to upload resume.');
+    if (file.type !== 'application/pdf') {
+      alert('Please upload a PDF file.');
+      return;
     }
-  });
-}
+
+    const userIdStr = localStorage.getItem('userId');
+    if (!userIdStr) {
+      alert('User not logged in.');
+      return;
+    }
+    const userId = parseInt(userIdStr, 10);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('userId', userId.toString());
+
+    this.uploadService.uploadResume(userId, formData).subscribe({
+      next: () => {
+        console.log('Resume uploaded successfully');
+        this.fetchResumes();
+      },
+      error: (error) => {
+        console.error('Upload failed:', error);
+        alert('Failed to upload resume.');
+      }
+    });
+  }
 }

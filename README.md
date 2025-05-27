@@ -1,4 +1,5 @@
 # Resumify
+<img width="947" alt="image" src="https://github.com/user-attachments/assets/31a39769-b25d-4be1-a940-f6f061f6e179" />
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
 
