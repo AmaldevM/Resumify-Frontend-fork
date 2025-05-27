@@ -8,30 +8,29 @@
 
   <span class="spacer"></span>
 
-<!-- Desktop nav -->
-<div class="desktop-nav">
-  <a mat-button routerLink="/">Home</a>
-  <a mat-button routerLink="/upload" class="upload-btn" (click)="onUploadResumeClick()">Upload Resume</a>
-  <a mat-button routerLink="/parsedresumes">Parsed Resume</a>
-  <a mat-button  href='#about-section' fragment="contact-section">About</a>
-  <a mat-button href="#contact-section" fragment="reviews">Contact</a>
+  <!-- Desktop nav -->
+  <div class="desktop-nav">
+    <a mat-button routerLink="/">Home</a>
+    <a mat-button class="upload-btn" (click)="onUploadResumeClick()">Upload Resume</a>
+    <a mat-button (click)="onParsedClick()">Parsed Resume</a>
+    <a mat-button href="#about-section" fragment="contact-section">About</a>
+    <a mat-button href="#contact-section" fragment="reviews">Contact</a>
 
-  <a *ngIf="!auth.isLoggedIn()" mat-button routerLink="/login" class="auth-btn">Login</a>
-  <a *ngIf="!auth.isLoggedIn()" mat-button routerLink="/register" class="auth-btn">Register</a>
-  <a *ngIf="auth.isLoggedIn()" mat-button (click)="logout()">Logout</a>
-</div>
+    <a *ngIf="!auth.isLoggedIn()" mat-button routerLink="/login" class="auth-btn">Login</a>
+    <a *ngIf="!auth.isLoggedIn()" mat-button routerLink="/register" class="auth-btn">Register</a>
+    <a *ngIf="auth.isLoggedIn()" mat-button (click)="logout()">Logout</a>
+  </div>
 
-<!-- Mobile nav -->
-<div class="mobile-nav" [class.active]="menuOpen">
-  <a mat-button routerLink="/" (click)="closeMenu()">Home</a>
-  <a *ngIf="auth.isLoggedIn()" mat-button routerLink="/upload" class="upload-btn" (click)="closeMenu()">Upload Resume</a>
-  <a *ngIf="auth.isLoggedIn()" mat-button routerLink="/parsedresumes" (click)="closeMenu()">Parsed Resume</a>
-  <a mat-button routerLink="/about" (click)="closeMenu()">About</a>
-  <a mat-button routerLink="/contact" (click)="closeMenu()">Contact</a>
-  <a *ngIf="!auth.isLoggedIn()" mat-button routerLink="/login" class="auth-btn" (click)="closeMenu()">Login</a>
-  <a *ngIf="!auth.isLoggedIn()" mat-button routerLink="/register" class="auth-btn" (click)="closeMenu()">Register</a>
-  <a *ngIf="auth.isLoggedIn()" mat-button (click)="logout(); closeMenu()">Logout</a>
-</div>
+  <!-- Mobile nav -->
+  <div class="mobile-nav" [class.active]="menuOpen">
+    <a mat-button routerLink="/" (click)="closeMenu()">Home</a>
+    <a mat-button class="upload-btn" (click)="onUploadResumeClick(); closeMenu()">Upload Resume</a>
+    <a mat-button (click)="onParsedClick(); closeMenu()">Parsed Resume</a>
+    <a mat-button routerLink="/about" (click)="closeMenu()">About</a>
+    <a mat-button routerLink="/contact" (click)="closeMenu()">Contact</a>
 
-
+    <a *ngIf="!auth.isLoggedIn()" mat-button routerLink="/login" class="auth-btn" (click)="closeMenu()">Login</a>
+    <a *ngIf="!auth.isLoggedIn()" mat-button routerLink="/register" class="auth-btn" (click)="closeMenu()">Register</a>
+    <a *ngIf="auth.isLoggedIn()" mat-button (click)="logout(); closeMenu()">Logout</a>
+  </div>
 </mat-toolbar>
