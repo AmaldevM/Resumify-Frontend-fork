@@ -31,7 +31,7 @@ export class AuthService {
           localStorage.setItem('userId', res.id);
           localStorage.setItem('token', res.token);
           localStorage.setItem('username', res.username);
-          this.isLoggedInSubject.next(true); // 🔁 Notify subscribers
+          this.isLoggedInSubject.next(true);
         }
       })
     );
@@ -43,7 +43,7 @@ export class AuthService {
       localStorage.removeItem('userId');
       localStorage.removeItem('token');
       localStorage.removeItem('username');
-      this.isLoggedInSubject.next(false); // 🔁 Notify subscribers
+      this.isLoggedInSubject.next(false);
     }
   }
 
@@ -61,4 +61,6 @@ export class AuthService {
   private hasToken(): boolean {
     return typeof window !== 'undefined' && !!localStorage.getItem('token');
   }
+
+
 }

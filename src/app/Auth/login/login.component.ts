@@ -30,24 +30,26 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const credentials = this.loginForm.value;
+      const credentials = {
+        username: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      };
 
       this.authService.login(credentials).subscribe({
         next: response => {
           console.log('Login successful:', response);
           alert('Login successful!');
-
-          // Save user data to localStorage
           localStorage.setItem('user', JSON.stringify(response));
           this.router.navigate(['/home']);
         },
         error: err => {
           console.error('Login failed:', err);
-          // You can show an error message to the user here
+          alert(err.error.message || 'Invalid credentials');
         }
       });
     }
   }
+
 showPassword: boolean = false;
 
 togglePasswordVisibility() {

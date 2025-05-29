@@ -25,11 +25,13 @@
         <!-- Password -->
         <label>Password</label>
         <input
-          type="password"
+          [type]="showPassword ? 'text' : 'password'"
           formControlName="password"
           placeholder="Enter your Password here"
         />
-
+        <button type="button" (click)="togglePasswordVisibility()">
+          {{ showPassword ? "Hide" : "Show" }}
+        </button>
 
         <div class="error" *ngIf="password?.touched && password?.invalid">
           <small *ngIf="password?.errors?.['required']"
