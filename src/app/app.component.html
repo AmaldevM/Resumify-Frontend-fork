@@ -1,4 +1,8 @@
 <app-loginusernavbar *ngIf="isLoggedIn"></app-loginusernavbar>
 <app-navbar *ngIf="!isLoggedIn"></app-navbar>
 
+<!-- Global Loading Spinner -->
+<app-loading *ngIf="isLoading$ | async"></app-loading>
+
+
 <router-outlet></router-outlet>

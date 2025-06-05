@@ -8,6 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HeroComponent } from "./hero/hero.component";
 import { AboutComponent } from './about/about.component';
+import { LoadingService } from '../services/LoadingService';
+
+
 
 @Component({
   selector: 'app-home',
@@ -18,18 +21,43 @@ import { AboutComponent } from './about/about.component';
     MatCardModule,
     FooterComponent,
     HeroComponent,
-    AboutComponent
+    AboutComponent,
 ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  showLoginOverlay = false;
+  showRegisterOverlay = false;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loadingService: LoadingService
+
   ) {}
+
+
+
+
+  openLoginOverlay() {
+    this.showLoginOverlay = true;
+    this.showRegisterOverlay = false;
+  }
+
+  openRegisterOverlay() {
+    this.showRegisterOverlay = true;
+    this.showLoginOverlay = false;
+  }
+
+  closeOverlay() {
+    this.showLoginOverlay = false;
+    this.showRegisterOverlay = false;
+  }
+
 
   ngOnInit(): void {
     // Smooth scroll to section based on fragment
@@ -57,8 +85,5 @@ export class HomeComponent implements OnInit {
       });
       return;
     }
-
-    console.log('Navigating to /browse');
-    this.router.navigate(['/browse']);
   }
 }

@@ -1,0 +1,151 @@
+.career-container {
+  background-color: #121212;
+  color: #eee;
+  min-height: 100vh;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  font-family: 'Segoe UI', sans-serif;
+
+  h1, h2, h3 {
+    color: #00ff88;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 2rem;
+    border-bottom: 2px solid #00ff88;
+    padding-bottom: 0.3rem;
+    margin-top: 3rem;
+  }
+
+  p {
+    color: #bbb;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+
+    li {
+      margin-bottom: 0.6rem;
+      font-size: 1.1rem;
+      color: #ccc;
+      padding-left: 1.3rem;
+      position: relative;
+
+      &::before {
+        content: '✔️';
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .why-join ul li {
+    &::before {
+      content: '🌟';
+    }
+  }
+
+  .job-openings {
+    .job-card {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(0, 255, 136, 0.15);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0, 255, 136, 0.4);
+      }
+
+      h3 {
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        margin-bottom: 0.4rem;
+        color: #bbb;
+      }
+
+      .apply-btn {
+        display: inline-block;
+        background-color: #00ff88;
+        color: #121212;
+        padding: 0.7rem 2rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #00cc6a;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .employee-testimonials {
+    margin-top: 3rem;
+
+    .testimonial {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 255, 136, 0.15);
+      font-style: italic;
+      color: #ccc;
+
+      p {
+        margin-bottom: 0.8rem;
+      }
+
+      span {
+        display: block;
+        text-align: right;
+        font-weight: bold;
+        color: #00ff88;
+      }
+    }
+  }
+
+  .cta-section {
+    text-align: center;
+    margin-top: 3rem;
+
+    .cta-button {
+      background-color: #00ff88;
+      color: #121212;
+      padding: 1rem 3rem;
+      font-size: 1.3rem;
+      font-weight: bold;
+      border-radius: 40px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #00cc6a;
+        color: #fff;
+      }
+    }
+  }
+}

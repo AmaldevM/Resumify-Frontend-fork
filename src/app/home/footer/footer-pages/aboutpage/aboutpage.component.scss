@@ -1,0 +1,159 @@
+.about-container {
+  background-color: #121212;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.about-content {
+  max-width: 900px;
+  text-align: center;
+
+  h1 {
+    font-size: 3rem;
+    color: #00ff88;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ccc;
+  }
+
+  /* Mission and Team sections styling */
+  .mission-section, .team-section, .history-section,.values-section, .timeline-section, .testimonial-section, .cta-section, .mission-vision-values {
+    margin-top: 3rem;
+
+    h2 {
+      font-size: 2rem;
+      color: #00ffaa;
+      margin-bottom: 1rem;
+    }
+
+    p, ul, li {
+      text-decoration: none;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #bbb;
+      font-size: 1rem;
+      line-height: 1.6;
+      list-style: none;
+    }
+
+    ul {
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 0.6rem;
+      /* Adding emojis padding */
+      &::before {
+        content: '';
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  /* Timeline section list */
+  .timeline-section ul {
+    text-align: left;
+    padding-left: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Team Members cards */
+  .team-members {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+
+    .member-card {
+      background-color: #1e1e1e;
+      padding: 1.5rem;
+      border-radius: 12px;
+      width: 220px;
+      box-shadow: 0 4px 12px rgba(0, 255, 136, 0.15);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        border: 2px solid #00ff88;
+      }
+
+      h3 {
+        color: #00ff88;
+        margin-bottom: 0.3rem;
+      }
+
+      p {
+        color: #bbb;
+        font-size: 0.95rem;
+      }
+    }
+  }
+
+  /* Testimonials */
+  .testimonials {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+
+    .testimonial {
+      background-color: #1e1e1e;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0, 255, 136, 0.15);
+      color: #ccc;
+      font-style: italic;
+
+      p {
+        margin-bottom: 0.8rem;
+        font-size: 1rem;
+      }
+
+      span {
+        display: block;
+        text-align: right;
+        font-weight: bold;
+        color: #00ff88;
+      }
+    }
+  }
+
+  /* Call to Action button */
+  .cta-button {
+    display: inline-block;
+    background-color: #00ff88;
+    color: #121212;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 30px;
+    margin-top: 1rem;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #00cc6a;
+      color: #fff;
+    }
+  }
+}

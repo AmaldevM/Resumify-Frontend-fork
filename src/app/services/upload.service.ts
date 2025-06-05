@@ -7,29 +7,24 @@ import { Observable } from 'rxjs';
 })
 export class UploadService {
 
-
-  // deleteAllResumes(userId: number) {
-  //   throw new Error('Method not implemented.');
-  // }
-
-  deleteAllResumes(userId: number): Observable<any> {
-    return this.http.delete<any>(`/api/resumes/user/${userId}`);
-  }
-
   private baseUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient) { }
 
+  // 🔄 Upload a resume
   uploadResume(userId: number, formData: FormData): Observable<any> {
-  return this.http.post(`${this.baseUrl}/resumes/upload/${userId}`, formData, {
-    responseType: 'text'  // ✅ treat response as plain text
-  });
-}
+    return this.http.post(`${this.baseUrl}/resumes/upload/${userId}`, formData, {
+      responseType: 'text'  // Expect plain text from backend
+    });
+  }
 
-
-  getUserResumes(userId: number) {
+  // 📥 Get all resumes for a user
+  getUserResumes(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/resumesByUserId?userId=${userId}`);
   }
 
-
+  // 🗑️ Delete all resumes for a user
+  deleteAllResumes(userId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete/${userId}`,{ responseType: 'text' });
+  }
 }

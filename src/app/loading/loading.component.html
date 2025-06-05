@@ -1,21 +1,67 @@
-<div class="loading-container">
-
-
+<div *ngIf="loading$ | async" class="loading-container">
   <div class="center-content">
+    <div class="logo-container">
+      <svg class="logo-icon" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12,3L2,12H5V20H19V12H22L12,3M12,7.7C14.1,7.7 15.8,9.4 15.8,11.5C15.8,13.6 14.1,15.3 12,15.3C9.9,15.3 8.2,13.6 8.2,11.5C8.2,9.4 9.9,7.7 12,7.7M7,17V18H17V17C17,14.3 14.7,12 12,12C9.3,12 7,14.3 7,17Z" />
+      </svg>
+      <div class="logo-text">ResumeParser</div>
+    </div>
 
-    <div class="loader"></div>
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="progress-text">Processing your resume...</div>
+    </div>
 
-    <p class="subtitle">
-      Just a moment...<br />
-      We’re extracting your skills and experience from your resume.
-    </p>
+    <div class="animated-icons">
+      <div class="icon-card">
+        <div class="icon-wrapper">
+          <svg class="document-icon" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+          </svg>
+        </div>
+        <div class="icon-label">Upload</div>
+      </div>
 
-    <div class="icons-row">
-      <img src="assets/icons/resumes-icon.png" alt="Resume Icon" class="icon" />
-      <div class="loader"></div>
-      <img src="assets/images/laptop.png" alt="Laptop" class="icon" />
-      <div class="loader"></div>
-      <img src="assets/icons/data-icon.png" alt="Data Icon" class="icon" />
+      <div class="processing-animation">
+        <div class="pulse-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+
+      <div class="icon-card">
+        <div class="icon-wrapper">
+          <svg class="analyze-icon" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M2,2H4V20H22V22H2V2M7,10H17V13H7V10M11,15H21V18H11V15M9,5H19V8H9V5Z" />
+          </svg>
+        </div>
+        <div class="icon-label">Analysis</div>
+      </div>
+
+      <div class="processing-animation">
+        <div class="pulse-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+
+      <div class="icon-card">
+        <div class="icon-wrapper">
+          <svg class="result-icon" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5M12,4.15L5,8.09V15.91L12,19.85L19,15.91V8.09L12,4.15Z" />
+          </svg>
+        </div>
+        <div class="icon-label">Results</div>
+      </div>
+    </div>
+
+    <div class="status-message">
+      <div class="typing-text">Extracting skills and experience from your resume...</div>
+      <div class="estimated-time">Estimated time remaining: <span class="time-value">15 seconds</span></div>
     </div>
   </div>
 </div>

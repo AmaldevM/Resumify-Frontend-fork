@@ -29,9 +29,9 @@
           formControlName="password"
           placeholder="Enter your Password here"
         />
-        <button type="button" (click)="togglePasswordVisibility()">
+        <!-- <button type="button" (click)="togglePasswordVisibility()">
           {{ showPassword ? "Hide" : "Show" }}
-        </button>
+        </button> -->
 
         <div class="error" *ngIf="password?.touched && password?.invalid">
           <small *ngIf="password?.errors?.['required']"

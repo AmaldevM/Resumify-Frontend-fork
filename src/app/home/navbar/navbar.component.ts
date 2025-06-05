@@ -5,6 +5,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
+import { LoadingService } from '../../services/LoadingService'; // ✅ Import LoadingService
+
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
     RouterModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
@@ -22,7 +24,11 @@ import { AuthService } from '../../services/auth.service';
 export class NavbarComponent {
   menuOpen = false;
 
-  constructor(public auth: AuthService, private router: Router) { }
+  constructor(
+    public auth: AuthService,
+    private router: Router,
+    private loadingService: LoadingService
+  ) { }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
@@ -48,7 +54,13 @@ export class NavbarComponent {
     } else if (!this.isAdmin()) {
       alert('Access Denied: Only admins can upload resumes.');
     } else {
-      this.router.navigate(['/upload']);
+      this.loadingService.setLoading(true);
+
+      setTimeout(() => {
+        this.router.navigate(['/upload']).finally(() => {
+          this.loadingService.setLoading(false);
+        });
+      }, 500); // ✅ Add a short delay so the loader can be seen
     }
   }
 
@@ -59,7 +71,14 @@ export class NavbarComponent {
     } else if (!this.isAdmin()) {
       alert('Access Denied: Only admins can view parsed resumes.');
     } else {
-      this.router.navigate(['/parsedresumes']);
+      this.loadingService.setLoading(true);
+
+      setTimeout(() => {
+        this.router.navigate(['/parsedresumes']).finally(() => {
+          this.loadingService.setLoading(false);
+        });
+      }, 500); // ✅ short delay
     }
   }
+
 }

@@ -6,7 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "./home/navbar/navbar.component";
 import { LoginusernavbarComponent } from "./home/loginusernavbar/loginusernavbar.component";
-import { AuthService } from './services/auth.service'; // ✅ import
+import { AuthService } from './services/auth.service';
+import { LoadingComponent } from "./loading/loading.component";
+import { LoadingService } from './services/LoadingService';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,33 +21,41 @@ import { AuthService } from './services/auth.service'; // ✅ import
     MatButtonModule,
     CommonModule,
     NavbarComponent,
-    LoginusernavbarComponent
+    LoginusernavbarComponent,
+    LoadingComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = 'resumify';
-  isLoggedIn = true;
+  isLoggedIn = false;
+  isLoading$!: Observable<boolean>;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private loadingService: LoadingService
+  ) { }
 
- ngOnInit() {
-  // 👇 Explicitly check and set the latest login status
-  const hasToken = this.authService.isLoggedIn();
-  this.authService['isLoggedInSubject'].next(hasToken); // force update
+  ngOnInit() {
+    // ✅ Bind loading observable once
+    this.isLoading$ = this.loadingService.loading$;
 
-  this.authService.isLoggedIn$.subscribe((status: boolean) => {
-    this.isLoggedIn = status;
-    console.log('Login status changed:', status);
-  });
-}
-scrollToSection(sectionId: string): void {
-  const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
+    // ✅ Set initial login status from token
+    const hasToken = this.authService.isLoggedIn();
+    this.authService['isLoggedInSubject'].next(hasToken);
+
+    // ✅ Subscribe to login status changes
+    this.authService.isLoggedIn$.subscribe((status: boolean) => {
+      this.isLoggedIn = status;
+      console.log('Login status changed:', status);
+    });
   }
-}
 
-
+  scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }
