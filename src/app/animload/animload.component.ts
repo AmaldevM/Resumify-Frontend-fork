@@ -18,6 +18,4 @@ export class AnimLoadingComponent {
       this.router.navigate(['/upload']);
     }, 9000);
   }
-
-
 }

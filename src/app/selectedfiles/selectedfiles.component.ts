@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UploadService } from '../services/upload.service';
-import { ResumeTransferService } from '../services/resume-transfer.service'; // 👈 import
+import { ResumeTransferService } from '../services/resume-transfer.service';
+import { LoadingService } from '../services/LoadingService'; // ✅ Import
 
 @Component({
   selector: 'app-selected-files',
@@ -18,7 +19,8 @@ export class SelectedFilesComponent {
   constructor(
     private router: Router,
     private uploadService: UploadService,
-    private resumeTransferService: ResumeTransferService // 👈 inject
+    private resumeTransferService: ResumeTransferService,
+    private loadingService: LoadingService // ✅ Inject
   ) {
     const state = this.router.getCurrentNavigation()?.extras.state as { fileName?: string };
     if (state?.fileName) {
@@ -63,15 +65,19 @@ export class SelectedFilesComponent {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
 
+    this.loadingService.setLoading(true); // ✅ Start loading
+
     this.uploadService.uploadResume(userId, formData).subscribe({
       next: (res) => {
         console.log('Upload successful:', res);
-        this.resumeTransferService.clearFile(); 
+        this.resumeTransferService.clearFile();
         this.router.navigate(['/parsedresumes'], { state: { fileName: this.fileName } });
+        // Loading will stop automatically via app.component route transition logic
       },
       error: (err) => {
         console.error('Upload failed:', err);
         alert('Failed to upload file');
+        this.loadingService.setLoading(false); // ✅ Stop loading on error
       }
     });
   }

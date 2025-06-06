@@ -1,0 +1,266 @@
+@use "@angular/material" as mat;
+@use "sass:color";
+
+// Color Palette
+$dark-bg: #0f0f0f;
+$mint-green: #30d158;
+$medium-gray: #434343;
+$text-gray: #ccc;
+$light-gray: #ddd;
+$accent-green: #2ecc71;
+$transition: all 0.3s ease;
+
+// Design Tokens
+$border-radius: 16px;
+$box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+$section-spacing: 4rem;
+$card-padding: 2.5rem;
+$inner-spacing: 1.5rem;
+
+// Mixins
+@mixin card-style {
+  background: color.adjust($dark-bg,  $lightness: 5%);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: $inner-spacing;
+  transition: $transition;
+  border: 1px solid rgba($mint-green, 0.15);
+}
+
+.policy-page {
+  background-color: $dark-bg;
+  color: $text-gray;
+  padding: $section-spacing 0;
+  min-height: calc(100vh - 120px);
+
+  .policy-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .policy-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    .privacy-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba($mint-green, 0.1);
+      color: $mint-green;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+
+      mat-icon {
+        margin-right: 0.5rem;
+        font-size: 20px;
+      }
+    }
+
+    h1 {
+      color: $mint-green;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .policy-subtitle {
+      color: $text-gray;
+      font-size: 1rem;
+
+      .update-date {
+        color: $light-gray;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .policy-content {
+    .policy-intro {
+      @include card-style;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding: 2rem;
+
+      .policy-icon {
+        @include card-style;
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba($mint-green, 0.1);
+
+        mat-icon {
+          color: $mint-green;
+          font-size: 30px;
+        }
+      }
+
+      .intro-text {
+        p {
+          margin: 0;
+          color: $text-gray;
+          line-height: 1.7;
+          font-size: 1.05rem;
+        }
+      }
+    }
+  }
+
+  .policy-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+
+    .highlight-card {
+      @include card-style;
+      padding: 1.5rem;
+      text-align: center;
+      transition: $transition;
+
+      &:hover {
+        transform: translateY(-5px);
+        border-color: rgba($mint-green, 0.3);
+      }
+
+      mat-icon {
+        color: $mint-green;
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        color: $light-gray;
+        margin: 0.5rem 0;
+        font-size: 1.2rem;
+      }
+
+      p {
+        color: $text-gray;
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  .policy-details {
+    margin-bottom: 3rem;
+
+    .detail-section {
+      margin-bottom: 2.5rem;
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        color: $accent-green;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+
+        mat-icon {
+          margin-right: 0.75rem;
+          font-size: 28px;
+        }
+      }
+
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.7;
+      }
+
+      .detail-list {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 1rem;
+
+        li {
+          position: relative;
+          padding-left: 2rem;
+          margin-bottom: 0.75rem;
+          line-height: 1.7;
+
+          &::before {
+            content: "•";
+            color: $mint-green;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0.5rem;
+            top: -0.25rem;
+          }
+
+          strong {
+            color: $light-gray;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  .policy-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+
+    .action-button {
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      transition: $transition;
+
+      mat-icon {
+        margin-right: 0.5rem;
+      }
+
+      &:first-child {
+        background-color: $mint-green;
+        color: $dark-bg;
+
+        &:hover {
+          background-color: color.adjust($mint-green, $lightness: 5%);
+
+        }
+      }
+
+      &:last-child {
+        color: $mint-green;
+        border-color: $mint-green;
+
+        &:hover {
+          background-color: rgba($mint-green, 0.1);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .policy-intro {
+      flex-direction: column;
+    }
+
+    .policy-highlights {
+      grid-template-columns: 1fr;
+    }
+
+    .policy-actions {
+      flex-direction: column;
+      width: 100%;
+
+      .action-button {
+        width: 100%;
+      }
+    }
+  }
+}

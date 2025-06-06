@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../../footer.component';
 
 @Component({
   selector: 'app-press',
-  imports: [],
   standalone: true,
+  imports: [FooterComponent],
   templateUrl: './press.component.html',
-  styleUrl: './press.component.scss'
+  styleUrls: ['./press.component.scss']
 })
-export class PressComponent {
-
-}
+export class PressComponent { }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../../footer.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-privacypolicy',
-  imports: [],
+  standalone: true,
+  imports: [FooterComponent,MatIconModule],
   templateUrl: './privacypolicy.component.html',
-  styleUrl: './privacypolicy.component.scss'
+  styleUrls: ['./privacypolicy.component.scss']
 })
-export class PrivacypolicyComponent {
-
-}
+export class PrivacypolicyComponent { }

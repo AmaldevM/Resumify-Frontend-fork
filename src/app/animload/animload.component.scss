@@ -1,54 +1,202 @@
+.resume-loader {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8f0fe 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: #2d3748;
+}
 
+.loader-content {
+  max-width: 600px;
+  width: 100%;
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 0.6s ease-out;
+}
 
-.loader-container {
+.loader-header {
   text-align: center;
-  margin-top: 200px;
-  font-family: 'Segoe UI', sans-serif;
-
+  margin-bottom: 2rem;
 }
 
-.avatar {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  margin-bottom: 20px;
+.animated-checkmark {
+  margin: 0 auto 1.5rem;
+  width: 80px;
+  height: 80px;
+  opacity: 0;
+  animation: checkmarkAppear 0.8s 0.3s forwards;
 }
 
-.subtitle {
+.checkmark {
+  width: 100%;
+  height: 100%;
+}
+
+.checkmark-circle {
+  stroke: #4f46e5;
+  stroke-width: 2;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+.checkmark-check {
+  stroke: #4f46e5;
+  stroke-width: 2;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 1.4s forwards;
+}
+
+.loader-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #1a237e;
+}
+
+.loader-subtitle {
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.loader-steps {
+  margin: 2rem 0;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.step-number {
+  background: #4f46e5;
   color: white;
-  font-size: 24px;
-  margin: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-right: 1rem;
+  flex-shrink: 0;
 }
 
-.title {
-  color: #2f6b43;
-  font-size: 24px;
-  font-weight: bold;
-  margin: 10px 0;
+.step-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  padding-top: 2px;
+}
+
+.progress-container {
+  margin-top: 2.5rem;
 }
 
 .progress-bar {
-  width: 200px;
-  height: 10px;
-  background-color: #eee;
-  margin: 30px auto;
-  border-radius: 10px;
+  height: 8px;
+  background: #edf2f7;
+  border-radius: 4px;
   overflow: hidden;
+  margin-bottom: 0.75rem;
 }
 
-.progress {
-  width: 0%;
+.progress-fill {
   height: 100%;
-  background-color: #1d6438;
-  animation: loadBar 9s linear forwards;
-  border-radius: 10px;
+  width: 0%;
+  background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+  border-radius: 4px;
+  animation: progressFill 2.5s ease-in-out forwards;
 }
 
-@keyframes loadBar {
+.progress-text {
+  font-size: 0.875rem;
+  color: #718096;
+  text-align: center;
+}
+
+.signature {
+  text-align: right;
+  margin-top: 1.5rem;
+  font-style: italic;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes checkmarkAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes progressFill {
   0% {
     width: 0%;
   }
   100% {
     width: 100%;
+  }
+}
+
+/* Step animations */
+.step:nth-child(1) {
+  animation: stepAppear 0.5s 0.6s forwards;
+}
+.step:nth-child(2) {
+  animation: stepAppear 0.5s 0.9s forwards;
+}
+.step:nth-child(3) {
+  animation: stepAppear 0.5s 1.2s forwards;
+}
+
+@keyframes stepAppear {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .loader-content {
+    padding: 1.5rem;
+  }
+  .loader-title {
+    font-size: 1.5rem;
   }
 }

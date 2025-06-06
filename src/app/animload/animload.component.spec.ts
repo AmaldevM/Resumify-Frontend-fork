@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnimloadComponent } from './animload.component';
+import { AnimLoadingComponent } from './animload.component';
 
 describe('AnimloadComponent', () => {
-  let component: AnimloadComponent;
-  let fixture: ComponentFixture<AnimloadComponent>;
+  let component: AnimLoadingComponent;
+  let fixture: ComponentFixture<AnimLoadingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AnimloadComponent]
+      imports: [AnimLoadingComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AnimloadComponent);
+    fixture = TestBed.createComponent(AnimLoadingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

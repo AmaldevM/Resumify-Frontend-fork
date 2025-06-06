@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from "../../footer.component";
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-termsofservice',
-  imports: [],
+  standalone: true,
+  imports: [FooterComponent,MatIconModule],
   templateUrl: './termsofservice.component.html',
-  styleUrl: './termsofservice.component.scss'
+  styleUrls: ['./termsofservice.component.scss']
 })
-export class TermsofserviceComponent {
-
-}
+export class TermsofserviceComponent { }

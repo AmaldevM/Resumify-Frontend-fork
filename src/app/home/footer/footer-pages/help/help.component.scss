@@ -1,0 +1,310 @@
+@use "@angular/material" as mat;
+@use "sass:color";
+
+// Color Palette
+$dark-bg: #0f0f0f;
+$mint-green: #30d158;
+$medium-gray: #434343;
+$text-gray: #ccc;
+$light-gray: #ddd;
+$accent-green: #2ecc71;
+$transition: all 0.3s ease;
+
+// Design Tokens
+$border-radius: 16px;
+$box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+$section-spacing: 4rem;
+$card-padding: 2.5rem;
+$inner-spacing: 1.5rem;
+
+// Mixins
+@mixin card-style {
+  background: color.adjust($dark-bg,  $lightness : 5%);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: $inner-spacing;
+  transition: $transition;
+  border: 1px solid rgba($mint-green, 0.15);
+}
+
+.help-page {
+  background-color: $dark-bg;
+  color: $text-gray;
+  padding: $section-spacing 0;
+  min-height: calc(100vh - 120px);
+
+  .help-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .help-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    .help-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba($mint-green, 0.1);
+      color: $mint-green;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+
+      mat-icon {
+        margin-right: 0.5rem;
+        font-size: 20px;
+      }
+    }
+
+    h1 {
+      color: $mint-green;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .help-subtitle {
+      color: $text-gray;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+  }
+
+  .search-section {
+    margin-bottom: 3rem;
+
+    .search-bar {
+      width: 100%;
+
+      .mat-form-field-outline {
+        color: $medium-gray;
+      }
+
+      .mat-form-field-outline-thick {
+        color: $mint-green;
+      }
+
+      .mat-input-element {
+        color: $light-gray;
+      }
+
+      .mat-icon {
+        color: $text-gray;
+      }
+    }
+  }
+
+  .help-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+
+    .category-card {
+      @include card-style;
+      padding: 1.5rem;
+      transition: $transition;
+
+      &:hover {
+        transform: translateY(-5px);
+        border-color: rgba($mint-green, 0.3);
+      }
+
+      .category-icon {
+        @include card-style;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1rem;
+        background: rgba($mint-green, 0.1);
+
+        mat-icon {
+          color: $mint-green;
+          font-size: 24px;
+        }
+      }
+
+      h3 {
+        color: $light-gray;
+        margin: 0.5rem 0;
+        font-size: 1.3rem;
+      }
+
+      p {
+        color: $text-gray;
+        margin: 0.5rem 0 1rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .category-link {
+        display: inline-flex;
+        align-items: center;
+        color: $mint-green;
+        text-decoration: none;
+        font-weight: 500;
+        transition: $transition;
+
+        mat-icon {
+          font-size: 18px;
+          margin-left: 0.25rem;
+          transition: $transition;
+        }
+
+        &:hover {
+          color: color.adjust($mint-green,  $lightness : 10%);
+
+          mat-icon {
+            transform: translateX(3px);
+          }
+        }
+      }
+    }
+  }
+
+  .faq-section {
+    margin-bottom: 3rem;
+
+    .section-title {
+      color: $accent-green;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .faq-accordion {
+      .mat-expansion-panel {
+        background: color.adjust($dark-bg,  $lightness : 5%);
+        color: $text-gray;
+        margin-bottom: 0.75rem;
+        border-radius: $border-radius !important;
+        border: 1px solid rgba($mint-green, 0.1);
+
+        &-header {
+          height: auto;
+          padding: 1rem 1.5rem;
+          font-weight: 500;
+
+          .mat-panel-title {
+            color: $light-gray;
+            font-size: 1rem;
+          }
+        }
+
+        &-body {
+          padding: 0 1.5rem 1.5rem;
+        }
+
+        p {
+          margin: 0;
+          line-height: 1.7;
+        }
+
+        a {
+          color: $accent-green;
+          text-decoration: underline;
+
+          &:hover {
+            color: color.adjust($accent-green,  $lightness : 10%);
+          }
+        }
+      }
+    }
+  }
+
+  .contact-section {
+    .contact-card {
+      @include card-style;
+      text-align: center;
+      padding: 2rem;
+
+      .contact-icon {
+        @include card-style;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+        background: rgba($mint-green, 0.1);
+
+        mat-icon {
+          color: $mint-green;
+          font-size: 30px;
+        }
+      }
+
+      h3 {
+        color: $light-gray;
+        margin: 0.5rem 0;
+        font-size: 1.5rem;
+      }
+
+      p {
+        color: $text-gray;
+        margin: 0 auto 1.5rem;
+        max-width: 500px;
+        line-height: 1.6;
+      }
+
+      .contact-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .contact-button {
+          border-radius: 50px;
+          padding: 0.75rem 1.5rem;
+          font-weight: 500;
+          transition: $transition;
+
+          mat-icon {
+            margin-right: 0.5rem;
+          }
+
+          &:first-child {
+            background-color: $mint-green;
+            color: $dark-bg;
+
+            &:hover {
+              background-color: color.adjust($mint-green,$lightness : 5%);
+            }
+          }
+
+          &:last-child {
+            color: $mint-green;
+            border-color: $mint-green;
+
+            &:hover {
+              background-color: rgba($mint-green, 0.1);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .help-categories {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-buttons {
+      flex-direction: column;
+      width: 100%;
+
+      .contact-button {
+        width: 100%;
+      }
+    }
+  }
+}

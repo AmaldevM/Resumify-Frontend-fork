@@ -1,1 +1,100 @@
-<p>help works!</p>
+<section class="help-page">
+  <div class="help-container">
+    <div class="help-header">
+      <div class="help-badge">
+        <mat-icon>support_agent</mat-icon>
+        <span>Support Center</span>
+      </div>
+      <h1>How Can We Help?</h1>
+      <p class="help-subtitle">Find answers to common questions or get in touch with our support team</p>
+    </div>
+
+    <div class="search-section">
+      <mat-form-field appearance="outline" class="search-bar">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="Search help articles...">
+        <button mat-icon-button matSuffix>
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <div class="help-categories">
+      <div class="category-card">
+        <div class="category-icon">
+          <mat-icon>account_circle</mat-icon>
+        </div>
+        <h3>Account Help</h3>
+        <p>Password resets, login issues, and account management</p>
+        <a href="#" class="category-link">Browse articles <mat-icon>chevron_right</mat-icon></a>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">
+          <mat-icon>description</mat-icon>
+        </div>
+        <h3>Resume Builder</h3>
+        <p>Templates, editing, and downloading your resume</p>
+        <a href="#" class="category-link">Browse articles <mat-icon>chevron_right</mat-icon></a>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">
+          <mat-icon>payment</mat-icon>
+        </div>
+        <h3>Billing</h3>
+        <p>Subscriptions, payments, and refunds</p>
+        <a href="#" class="category-link">Browse articles <mat-icon>chevron_right</mat-icon></a>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      
+      <mat-accordion class="faq-accordion">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>How do I reset my password?</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>To reset your password, go to the <a href="#">Forgot Password</a> page and enter your email address. You'll receive a link to create a new password.</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Can I edit my resume after downloading?</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Yes! All your resumes are saved in your account. You can edit them anytime and download updated versions.</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>How do I change my template?</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Navigate to your resume editor and click "Change Template" in the top toolbar. You can preview all available templates before applying.</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="contact-section">
+      <div class="contact-card">
+        <div class="contact-icon">
+          <mat-icon>contact_support</mat-icon>
+        </div>
+        <h3>Still Need Help?</h3>
+        <p>Our support team is available 24/7 to assist you</p>
+        <div class="contact-buttons">
+          <button mat-flat-button color="primary" class="contact-button">
+            <mat-icon>chat</mat-icon>
+            Live Chat
+          </button>
+          <button mat-stroked-button class="contact-button">
+            <mat-icon>email</mat-icon>
+            Email Support
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

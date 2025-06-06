@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../../footer.component';
+import { CommonModule } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-contactus',
-  imports: [],
+  standalone: true,
+  imports: [FooterComponent,CommonModule,MatIcon],
   templateUrl: './contactus.component.html',
-  styleUrl: './contactus.component.scss'
+  styleUrls: ['./contactus.component.scss']
 })
-export class ContactusComponent {
+export class ContactusComponent { }
 
-}

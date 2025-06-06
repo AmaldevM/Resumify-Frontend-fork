@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../../footer.component';
 
 @Component({
   selector: 'app-blog',
-  imports: [],
   standalone: true,
+  imports: [FooterComponent],
   templateUrl: './blog.component.html',
-  styleUrl: './blog.component.scss'
+  styleUrls: ['./blog.component.scss']
 })
-export class BlogComponent {
-
-}
+export class BlogComponent { }

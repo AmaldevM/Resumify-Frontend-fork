@@ -184,7 +184,6 @@ body {
     content: "→";
     transition: transform 0.3s ease;
   }
-
   &:hover::after {
     transform: translateX(3px);
   }

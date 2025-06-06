@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../../footer.component';
 
 @Component({
   selector: 'app-pricing',
-  imports: [],
   standalone: true,
+  imports: [FooterComponent],
   templateUrl: './pricing.component.html',
-  styleUrl: './pricing.component.scss'
+  styleUrls: ['./pricing.component.scss']
 })
-export class PricingComponent {
-
-}
+export class PricingComponent { }

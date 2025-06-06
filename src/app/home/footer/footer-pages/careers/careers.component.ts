@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from "../../footer.component";
 
 @Component({
   selector: 'app-careers',
-  imports: [],
   standalone: true,
+  imports: [FooterComponent],
   templateUrl: './careers.component.html',
-  styleUrl: './careers.component.scss'
+  styleUrls: ['./careers.component.scss']
 })
-export class CareersComponent {
-
-}
+export class CareersComponent { }

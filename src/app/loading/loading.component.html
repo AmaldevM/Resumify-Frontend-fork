@@ -1,4 +1,4 @@
-<div *ngIf="loading$ | async" class="loading-container">
+<div *ngIf="isLoading$ | async" class="loading-container">
   <div class="center-content">
     <div class="logo-container">
       <svg class="logo-icon" viewBox="0 0 24 24">
@@ -61,7 +61,7 @@
 
     <div class="status-message">
       <div class="typing-text">Extracting skills and experience from your resume...</div>
-      <div class="estimated-time">Estimated time remaining: <span class="time-value">15 seconds</span></div>
+      <div class="estimated-time">Estimated time remaining: <span class="time-value">5 seconds</span></div>
     </div>
   </div>
 </div>

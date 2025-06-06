@@ -119,7 +119,13 @@ $breakpoints: (
       transform: translateY(-3px);
       box-shadow: 0 6px 25px rgba($primary, 0.4);
     }
-
+    &::after {
+      content: "→";
+      transition: transform 0.3s ease;
+    }
+    &:hover::after {
+      transform: translateX(3px);
+    }
     mat-icon {
       transition: transform 0.3s ease;
     }

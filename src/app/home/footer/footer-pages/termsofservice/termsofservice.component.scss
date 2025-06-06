@@ -1,0 +1,294 @@
+@use "@angular/material" as mat;
+@use "sass:color";
+
+// Color Palette
+$dark-bg: #0f0f0f;
+$mint-green: #30d158;
+$medium-gray: #434343;
+$text-gray: #ccc;
+$light-gray: #ddd;
+$accent-green: #2ecc71;
+$transition: all 0.3s ease;
+
+// Design Tokens
+$border-radius: 16px;
+$box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+$section-spacing: 4rem;
+$card-padding: 2.5rem;
+$inner-spacing: 1.5rem;
+
+// Mixins
+@mixin card-style {
+  background: color.adjust($dark-bg, $lightness: 5%);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: $inner-spacing;
+  transition: $transition;
+  border: 1px solid rgba($mint-green, 0.15);
+}
+
+.tos-page {
+  background-color: $dark-bg;
+  color: $text-gray;
+  padding: $section-spacing 0;
+  min-height: calc(100vh - 120px);
+
+  .tos-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .tos-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    .tos-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba($mint-green, 0.1);
+      color: $mint-green;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+
+      mat-icon {
+        margin-right: 0.5rem;
+        font-size: 20px;
+      }
+    }
+
+    h1 {
+      color: $mint-green;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .tos-subtitle {
+      color: $text-gray;
+      font-size: 1rem;
+
+      .update-date {
+        color: $light-gray;
+        font-weight: 500;
+      }
+
+      .version-history {
+        color: $accent-green;
+        text-decoration: none;
+        transition: $transition;
+
+        &:hover {
+          color: color.adjust($accent-green,$lightness : 10%);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .acceptance-banner {
+    @include card-style;
+    display: flex;
+    align-items: center;
+    background: rgba($mint-green, 0.08);
+    border-color: rgba($mint-green, 0.3);
+    margin-bottom: 2rem;
+    padding: 1.25rem 1.5rem;
+
+    .banner-icon {
+      margin-right: 1rem;
+      
+      mat-icon {
+        color: $mint-green;
+        font-size: 28px;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-weight: 500;
+      color: $light-gray;
+    }
+  }
+
+  .tos-content {
+    margin-bottom: 3rem;
+
+    .section-card {
+      @include card-style;
+      margin-bottom: 1.5rem;
+      transition: $transition;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        color: $accent-green;
+        font-size: 1.4rem;
+        margin-top: 0;
+        margin-bottom: 1.25rem;
+        font-weight: 600;
+
+        mat-icon {
+          margin-right: 0.75rem;
+          font-size: 28px;
+        }
+      }
+
+      .terms-list {
+        list-style: none;
+        counter-reset: terms-counter;
+        padding-left: 0;
+        margin: 0;
+
+        li {
+          counter-increment: terms-counter;
+          position: relative;
+          padding-left: 3rem;
+          margin-bottom: 1rem;
+          line-height: 1.7;
+
+          &::before {
+            content: counter(terms-counter);
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            color: $mint-green;
+            font-weight: bold;
+            font-size: 1.1rem;
+          }
+
+          strong {
+            color: $light-gray;
+            font-weight: 500;
+          }
+        }
+      }
+
+      .nested-list {
+        list-style: disc;
+        padding-left: 2rem;
+        margin-top: 0.5rem;
+
+        li {
+          padding-left: 0;
+          margin-bottom: 0.5rem;
+          color: $text-gray;
+
+          &::before {
+            content: none;
+          }
+        }
+      }
+    }
+  }
+
+  .tos-actions {
+    .acceptance-card {
+      @include card-style;
+      text-align: center;
+      padding: 2rem;
+      background: rgba($mint-green, 0.05);
+      border-color: rgba($mint-green, 0.2);
+
+      .acceptance-icon {
+        @include card-style;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+        background: rgba($mint-green, 0.1);
+
+        mat-icon {
+          color: $mint-green;
+          font-size: 30px;
+        }
+      }
+
+      h3 {
+        color: $light-gray;
+        margin: 0.5rem 0;
+        font-size: 1.5rem;
+      }
+
+      p {
+        color: $text-gray;
+        margin: 0 auto 1.5rem;
+        max-width: 600px;
+        line-height: 1.6;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        button {
+          border-radius: 50px;
+          padding: 0.75rem 1.5rem;
+          font-weight: 500;
+          transition: $transition;
+
+          mat-icon {
+            margin-right: 0.5rem;
+          }
+        }
+
+        .accept-button {
+          background-color: $mint-green;
+          color: $dark-bg;
+
+          &:hover {
+            background: color.adjust($mint-green, $lightness: 5%);
+          }
+        }
+
+        .decline-button {
+          color: $mint-green;
+          border-color: $mint-green;
+
+          &:hover {
+            background-color: rgba($mint-green, 0.1);
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .tos-header {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .acceptance-banner {
+      flex-direction: column;
+      text-align: center;
+
+      .banner-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .action-buttons {
+      flex-direction: column;
+      width: 100%;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

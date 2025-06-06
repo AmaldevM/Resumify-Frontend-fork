@@ -116,16 +116,16 @@ strong {
     background-image: url("/assets/images/manager.jpg");
     background-size: cover;
     background-position: center;
-
-
     margin: 0 auto 1.5rem;
     border: 3px solid rgba($mint-green, 0.1);
   }
+
   h3 {
     text-align: center;
     margin-bottom: 1.5rem;
     color: $mint-green;
   }
+
   .section {
     margin-bottom: 2rem;
     strong {
@@ -160,6 +160,7 @@ strong {
     }
   }
 }
+
 // Add animation for shimmer effect
 @keyframes shimmer {
   0% {
@@ -169,8 +170,8 @@ strong {
     background-position: -200% 0;
   }
 }
-// Placeholder lines for loading state
 
+// Placeholder lines for loading state
 
 // Add reduced motion preference
 @media (prefers-reduced-motion: reduce) {

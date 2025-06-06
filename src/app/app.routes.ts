@@ -16,6 +16,16 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotpassComponent },
+  { path: 'help', loadComponent: () => import('./home/footer/footer-pages/help/help.component').then(m => m.HelpComponent) },
+  { path: 'contact', loadComponent: () => import('./home/footer/footer-pages/contactus/contactus.component').then(m => m.ContactusComponent) },
+  { path: 'privacy-policy', loadComponent: () => import('./home/footer/footer-pages/privacypolicy/privacypolicy.component').then(m => m.PrivacypolicyComponent) },
+  { path: 'terms-of-service', loadComponent: () => import('./home/footer/footer-pages/termsofservice/termsofservice.component').then(m => m.TermsofserviceComponent) },
+  { path: 'gdpr-ccpa', loadComponent: () => import('./home/footer/footer-pages/gdrp-ccpa/gdrp-ccpa.component').then(m => m.GDRPCCPAComponent) },
+  { path: 'about', loadComponent: () => import('./home/footer/footer-pages/aboutpage/aboutpage.component').then(m => m.AboutpageComponent) },
+  { path: 'careers', loadComponent: () => import('./home/footer/footer-pages/careers/careers.component').then(m => m.CareersComponent) },
+  { path: 'pricing', loadComponent: () => import('./home/footer/footer-pages/pricing/pricing.component').then(m => m.PricingComponent) },
+  { path: 'blog', loadComponent: () => import('./home/footer/footer-pages/blog/blog.component').then(m => m.BlogComponent) },
+  { path: 'press', loadComponent: () => import('./home/footer/footer-pages/press/press.component').then(m => m.PressComponent) },
 
   // ✅ Feature routes with lazy loading + auth guard
   {

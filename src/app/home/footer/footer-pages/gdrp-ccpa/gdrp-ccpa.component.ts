@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../../footer.component';
+import { CommonModule } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-gdrp-ccpa',
-  imports: [],
+  standalone: true,
+  imports: [FooterComponent, CommonModule, MatIcon],
   templateUrl: './gdrp-ccpa.component.html',
-  styleUrl: './gdrp-ccpa.component.scss'
+  styleUrls: ['./gdrp-ccpa.component.scss']
 })
-export class GDRPCCPAComponent {
-
-}
+export class GDRPCCPAComponent { }
