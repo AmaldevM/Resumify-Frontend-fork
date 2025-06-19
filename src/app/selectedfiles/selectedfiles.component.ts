@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UploadService } from '../services/upload.service';
 import { ResumeTransferService } from '../services/resume-transfer.service';
-import { LoadingService } from '../services/LoadingService'; // ✅ Import
+import { LoadingService } from '../services/LoadingService';
 
 @Component({
   selector: 'app-selected-files',
@@ -13,45 +13,51 @@ import { LoadingService } from '../services/LoadingService'; // ✅ Import
   styleUrls: ['./selectedfiles.component.scss']
 })
 export class SelectedFilesComponent {
-  fileName: string = '';
-  selectedFile!: File;
+  selectedFiles: File[] = [];
 
   constructor(
     private router: Router,
     private uploadService: UploadService,
     private resumeTransferService: ResumeTransferService,
-    private loadingService: LoadingService // ✅ Inject
+    private loadingService: LoadingService
   ) {
-    const state = this.router.getCurrentNavigation()?.extras.state as { fileName?: string };
-    if (state?.fileName) {
-      this.fileName = state.fileName;
-    }
-
     const file = this.resumeTransferService.getFile();
     if (file) {
-      this.selectedFile = file;
-    } else {
-      alert('No file found. Please upload again.');
-      this.router.navigate(['/']);
+      this.selectedFiles = [file];
     }
   }
 
-  onSelectNewFile(event: Event) {
+  get fileNames(): string[] {
+    return this.selectedFiles.map(file => file.name);
+  }
+
+  onSelectNewFiles(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (file && file.type === 'application/pdf') {
-      this.selectedFile = file;
-      this.fileName = file.name;
+    if (input.files) {
+      const newFiles = Array.from(input.files).filter(file => file.type === 'application/pdf');
+      const totalFiles = this.selectedFiles.length + newFiles.length;
+      this.selectedFiles.push(...newFiles);
     }
   }
 
-  goBack() {
+
+  removeFile(index: number): void {
+    this.selectedFiles.splice(index, 1);
+  }
+
+  formatFileSize(bytes: number): string {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  }
+
+  goBack(): void {
     this.router.navigate(['/']);
   }
 
-  continue() {
-    if (!this.selectedFile) {
-      alert('No file selected!');
+  continue(): void {
+    if (this.selectedFiles.length === 0) {
+      alert('No files selected!');
       return;
     }
 
@@ -61,23 +67,27 @@ export class SelectedFilesComponent {
       return;
     }
 
-    const userId = parseInt(userIdStr, 10);
+    const userId = Number(userIdStr);
     const formData = new FormData();
-    formData.append('file', this.selectedFile);
 
-    this.loadingService.setLoading(true); // ✅ Start loading
+    this.selectedFiles.forEach(file => {
+      formData.append('file', file); // Must match backend @RequestParam("files")
+    });
+
+    this.loadingService.setLoading(true);
 
     this.uploadService.uploadResume(userId, formData).subscribe({
       next: (res) => {
         console.log('Upload successful:', res);
         this.resumeTransferService.clearFile();
-        this.router.navigate(['/parsedresumes'], { state: { fileName: this.fileName } });
-        // Loading will stop automatically via app.component route transition logic
+        this.router.navigate(['/parsedresumes'], {
+          state: { fileNames: this.fileNames }
+        });
       },
       error: (err) => {
         console.error('Upload failed:', err);
-        alert('Failed to upload file');
-        this.loadingService.setLoading(false); // ✅ Stop loading on error
+        alert('Failed to upload file(s)');
+        this.loadingService.setLoading(false);
       }
     });
   }

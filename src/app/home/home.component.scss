@@ -2,17 +2,22 @@
 @use "sass:color";
 // Color Palette
 $dark-bg: #0f0f0f;
-$mint-green: #30d158;
+$mint-green: #3cb662;
 $medium-gray: #434343;
 $text-gray: #ccc;
 $light-gray: #ddd;
 $accent-green: #2ecc71;
 $transition: all 0.3s ease;
+
 // Design Tokens
 $border-radius: 12px;
 $box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 $section-spacing: 3rem;
 $card-padding: 2rem;
+
+$primary-light: #a0e8af;
+$divider: rgba(255, 255, 255, 0.12);
+
 // Mixins
 @mixin flex-center {
   display: flex;
@@ -83,163 +88,487 @@ strong {
   color: $light-gray;
   font-weight: 600;
 }
-
-// Resume Parser Section
+/* Resume Parser Section */
 .resume-parser-section {
-  .image-content {
-    @include flex-center;
-    flex-direction: column;
+  // padding: $section-spacing 0;
+  background: color.adjust($dark-bg, $lightness: 3%);
+  min-height: 100vh;
+  padding: 2rem 0;
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
   }
-  .resume-parse-container {
+
+  .section-title {
+    text-align: center;
+    font-size: 3.25rem;
+    margin-bottom: 1rem;
+    color: $light-gray;
+    font-weight: 700;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: $text-gray;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .results-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    width: 100%;
+    gap: 2rem;
+    // margin-top: 2rem;
+
     @media (max-width: 992px) {
       grid-template-columns: 1fr;
     }
   }
-}
 
-.resume-card {
-  @include card-style;
-  max-width: 600px;
-  width: 100%;
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-  }
-  .profile-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-image: url("/assets/images/manager.jpg");
-    background-size: cover;
-    background-position: center;
-    margin: 0 auto 1.5rem;
-    border: 3px solid rgba($mint-green, 0.1);
-  }
+  .resume-card,
+  .parsed-info-card {
+    @include card-style;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  h3 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: $mint-green;
-  }
-
-  .section {
-    margin-bottom: 2rem;
-    strong {
-      display: block;
-      margin-bottom: 0.75rem;
-      color: $accent-green;
-      font-size: 1.1rem;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      border-color: rgba($mint-green, 0.3);
     }
+  }
+
+  /* Resume Card Styles */
+  .resume-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba($mint-green, 0.1);
+
+    .profile-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 1.5rem;
+      border: 3px solid rgba($mint-green, 0.2);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .candidate-info {
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: $mint-green;
+      }
+
+      .job-title {
+        color: $accent-green;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: $text-gray;
+
+        i {
+          margin-right: 0.5rem;
+          color: $mint-green;
+        }
+      }
+    }
+  }
+
+  .resume-section {
+    margin-bottom: 2rem;
+
+    h4 {
+      color: $mint-green;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      font-size: 1.25rem;
+
+      i {
+        margin-right: 0.75rem;
+        font-size: 1.1rem;
+      }
+    }
+
+    p {
+      color: $text-gray;
+      line-height: 1.6;
+    }
+
     &.two-column {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      gap: 2rem;
+
       @media (max-width: 576px) {
         grid-template-columns: 1fr;
       }
     }
   }
-  .placeholder-line {
-    height: 14px;
-    background: linear-gradient(
-      90deg,
-      $medium-gray 0%,
-      $dark-bg 50%,
-      $medium-gray 100%
-    );
-    background-size: 200% 100%;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    animation: shimmer 1.5s infinite linear;
-    &.short {
-      width: 70%;
-    }
-  }
-}
 
-// Add animation for shimmer effect
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-// Placeholder lines for loading state
-
-// Add reduced motion preference
-@media (prefers-reduced-motion: reduce) {
-  .placeholder-line {
-    animation: none !important;
-  }
-}
-.parsed-info-card {
-  @include card-style;
-  max-width: 600px;
-  width: 100%;
-  padding: 2rem;
-
-  h4 {
-    color: $mint-green;
+  .education-item,
+  .experience-item {
     margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid rgba($mint-green, 0.1);
-    font-size: 1.25rem;
-  }
 
-  table {
-    width: 100%;
-    margin-bottom: 2rem;
-    border-collapse: collapse;
+    h5 {
+      font-size: 1.1rem;
+      color: $light-gray;
+      margin-bottom: 0.25rem;
+    }
 
-    tr {
-      &:not(:last-child) {
-        border-bottom: 1px solid rgba($mint-green, 0.05);
-      }
+    .institution,
+    .company {
+      font-weight: 600;
+      color: $accent-green;
+      font-size: 0.95rem;
+    }
 
-      td {
-        padding: 0.75rem 0;
-        vertical-align: middle; /* Changed from top to middle for better alignment */
+    .date {
+      font-size: 0.9rem;
+      color: $text-gray;
+      margin: 0.5rem 0;
+    }
 
-        &:first-child {
-          width: 30%; /* Slightly reduced width */
-          color: $text-gray;
-          font-weight: 500;
-          padding-right: 1rem;
-        }
+    ul {
+      padding-left: 1.25rem;
+      margin-top: 0.75rem;
 
-        &:last-child {
-          color: color.adjust($dark-bg, $lightness: 5%);
-          font-weight: 400;
-        }
+      li {
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+        color: $text-gray;
       }
     }
   }
 
-  .skills {
+  .skills-container {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
 
-    span {
-      background-color: rgba($mint-green, 0.1);
+    .skill-tag {
+      background: rgba($mint-green, 0.1);
       color: $mint-green;
-      padding: 0.5rem 1.25rem;
+      padding: 0.5rem 1rem;
       border-radius: 50px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 500;
-      transition: all 0.2s ease;
+      transition: $transition;
 
       &:hover {
-        background-color: rgba($mint-green, 0.2);
+        background: rgba($mint-green, 0.2);
         transform: translateY(-2px);
       }
+    }
+  }
+
+  .languages-container {
+    margin-top: 1rem;
+
+    .language-item {
+      margin-bottom: 1rem;
+    }
+
+    .proficiency {
+      display: flex;
+      align-items: center;
+      margin-top: 0.5rem;
+
+      .proficiency-level {
+        height: 6px;
+        border-radius: 3px;
+        margin-right: 0.75rem;
+      }
+
+      .fluent {
+        width: 80px;
+        background: $mint-green;
+      }
+
+      .intermediate {
+        width: 50px;
+        background: $medium-gray;
+      }
+
+      span {
+        font-size: 0.85rem;
+        color: $text-gray;
+      }
+    }
+  }
+
+  /* Parsed Info Card Styles */
+  .parsed-info-card {
+    .parsed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba($mint-green, 0.1);
+
+      h3 {
+        color: $light-gray;
+        font-size: 1.5rem;
+      }
+
+      .accuracy-badge {
+        display: flex;
+        align-items: center;
+        background: rgba($accent-green, 0.1);
+        color: $accent-green;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 600;
+
+        i {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+    .parsed-section {
+      margin-bottom: 2rem;
+
+      h4 {
+        color: $mint-green;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        font-size: 1.25rem;
+
+        i {
+          margin-right: 0.75rem;
+          font-size: 1.1rem;
+        }
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+
+        tr {
+          border-bottom: 1px solid rgba($mint-green, 0.05);
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          td {
+            padding: 0.75rem 0;
+            vertical-align: middle;
+
+            &:first-child {
+              width: 40%;
+              font-weight: 500;
+              color: $text-gray;
+            }
+
+            &:last-child {
+              color: $light-gray;
+            }
+          }
+        }
+      }
+
+      .skills-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1rem;
+
+        span {
+          padding: 0.5rem 1rem;
+          border-radius: 50px;
+          font-size: 0.85rem;
+          background: rgba($mint-green, 0.1);
+          color: $mint-green;
+          transition: $transition;
+
+          &:hover {
+            transform: translateY(-2px);
+          }
+        }
+
+        .skill-large {
+          font-size: 0.95rem;
+          padding: 0.6rem 1.2rem;
+          background: rgba($mint-green, 0.2);
+        }
+
+        .skill-medium {
+          font-size: 0.85rem;
+        }
+
+        .skill-small {
+          font-size: 0.8rem;
+          opacity: 0.8;
+        }
+      }
+
+      .experience-summary {
+        margin-top: 1rem;
+
+        .exp-item {
+          display: flex;
+          margin-bottom: 1.25rem;
+
+          .exp-duration {
+            min-width: 70px;
+            font-weight: 600;
+            color: $mint-green;
+          }
+
+          .exp-details {
+            strong {
+              display: block;
+              color: $light-gray;
+              margin-bottom: 0.25rem;
+            }
+
+            p {
+              color: $text-gray;
+              font-size: 0.9rem;
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+
+      @media (max-width: 576px) {
+        flex-direction: column;
+      }
+
+      .btn {
+        flex: 1;
+        padding: 0.75rem 1.5rem;
+        border-radius: $border-radius;
+        font-weight: 600;
+        cursor: pointer;
+        transition: $transition;
+        text-align: center;
+        border: none;
+
+        &-download {
+          background: rgba($mint-green, 0.1);
+          color: $mint-green;
+
+          &:hover {
+            background: rgba($mint-green, 0.2);
+          }
+        }
+
+        &-apply {
+          @include gradient-bg;
+          color: $dark-bg;
+
+          &:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+
+  /* Buttons */
+  .parse-btn {
+    @include gradient-bg;
+    color: $dark-bg;
+    padding: 0.75rem 2rem;
+    border-radius: $border-radius;
+    font-weight: 600;
+    cursor: pointer;
+    transition: $transition;
+    border: none;
+    font-size: 1rem;
+    margin-top: 1rem;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba($mint-green, 0.2);
+    }
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .resume-parser-section {
+    .container {
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+    }
+
+    .upload-box {
+      padding: 2rem 1.5rem;
+    }
+
+    .resume-header {
+      flex-direction: column;
+      text-align: center;
+
+      .profile-image {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .resume-parser-section {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+    }
+
+    .upload-box {
+      padding: 1.5rem 1rem;
+
+      h3 {
+        font-size: 1.25rem;
+      }
+    }
+
+    .resume-card,
+    .parsed-info-card {
+      padding: 1.5rem;
     }
   }
 }
@@ -273,7 +602,7 @@ strong {
         top: 0.25em;
         height: 1em;
         width: 6px;
-        background: $mint-green;
+        // background: $mint-green;
         border-radius: 3px;
       }
     }
@@ -291,7 +620,7 @@ strong {
   }
   .atsb1 {
     @include card-style;
-    @include gradient-bg;
+    background-color: #3cb662;
     color: $dark-bg;
     padding: 3rem;
     display: flex;
@@ -305,7 +634,8 @@ strong {
     .ats-bottom-text {
       margin-bottom: 2.5rem;
       opacity: 0.9;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      text-emphasis: none;
     }
     .ats-btn {
       background-color: $dark-bg;

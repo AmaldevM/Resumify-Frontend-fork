@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ResumeTransferService } from '../services/resume-transfer.service'; // 👈 import
+import { ResumeTransferService } from '../services/resume-transfer.service';
+
 
 @Component({
   selector: 'app-upload',
@@ -51,4 +52,3 @@ export class BrowseResumeComponent {
     this.dragOver = false;
   }
 }
-

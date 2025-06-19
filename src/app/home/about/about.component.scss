@@ -18,7 +18,7 @@ $card-bg: color.adjust($dark-bg, $lightness: 5%);
 @mixin card-style {
   background: $card-bg;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  // box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   border: 1px solid $medium-gray;
   transition: $transition;
 }
@@ -39,7 +39,7 @@ body {
 
 // About Us Section - Fixed mixed declarations
 .about-us {
-  background: linear-gradient(to bottom, color.adjust($dark-bg, $lightness: 5%), $dark-bg);
+  background:color.adjust($dark-bg, $lightness: 5%);
   position: relative;
   @include section-padding;
 

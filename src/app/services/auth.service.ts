@@ -6,17 +6,13 @@ import { Observable, tap, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  getRole(): string {
-    return localStorage.getItem('userRole') || '';
-  }
-
   private apiUrl = 'http://localhost:8080/api/auth';
 
   // 🟢 BehaviorSubject to track login status
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
   public isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // ✅ Register user
   register(userData: any): Observable<any> {
@@ -57,10 +53,28 @@ export class AuthService {
     return typeof window !== 'undefined' ? localStorage.getItem('userId') : null;
   }
 
+  // ✅ Helper to get user role
+  getRole(): string {
+    return localStorage.getItem('userRole') || '';
+  }
+
   // ✅ Private method to check token existence
   private hasToken(): boolean {
     return typeof window !== 'undefined' && !!localStorage.getItem('token');
   }
 
+  // ✅ Send reset code to email
+ sendResetCode(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/setEmail`, { email }, { responseType: 'text' });
+  }
 
+  verifyResetCode(email: string,validationCode: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/setCode`, {email,validationCode, },{ responseType: 'text' });
+  }
+
+
+  // ✅ Reset password
+  resetPassword(email:string,password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/newpassword`, {email,password },{ responseType: 'text' });
+  }
 }

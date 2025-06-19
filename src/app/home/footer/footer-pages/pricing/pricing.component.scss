@@ -9,7 +9,7 @@
   .pricing-header {
     h1 {
       font-size: 3rem;
-      color: #00ff88;
+      color: #3cb662;
       margin-bottom: 0.5rem;
     }
 
@@ -37,16 +37,16 @@
 
       &:hover {
         transform: translateY(-5px);
-        border-color: #00ff88;
+        border-color: #3cb662;
       }
 
       &.featured {
-        border-color: #00ff88;
+        border-color: #3cb662;
         box-shadow: 0 6px 20px rgba(0, 255, 136, 0.25);
       }
 
       h2 {
-        color: #00ff88;
+        color: #3cb662;
         font-size: 2rem;
         margin-bottom: 0.5rem;
       }
@@ -72,7 +72,7 @@
 
       .plan-button {
         display: inline-block;
-        background-color: #00ff88;
+        background-color: #3cb662;
         color: #121212;
         padding: 0.75rem 1.5rem;
         border-radius: 30px;

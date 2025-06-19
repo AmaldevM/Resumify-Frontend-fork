@@ -1,0 +1,53 @@
+<div class="resume-preview-container" *ngIf="resume">
+  <div class="resume-card">
+    <div class="resume-header">
+      <img [src]="resume.imageUrl" alt="Resume Image" />
+      <div>
+        <h2>{{ resume.name }}</h2>
+        <p>{{ resume.jobPosition }}</p>
+        <p>{{ resume.email }}</p>
+        <p>{{ resume.phone }}</p>
+      </div>
+    </div>
+
+    <div class="resume-section">
+      <h3>Profile Summary</h3>
+      <p>{{ resume.profileSummary }}</p>
+    </div>
+
+    <div class="resume-section">
+      <h3>Job Fit</h3>
+      <p>{{ resume.jobFit }}</p>
+    </div>
+
+    <div class="resume-section">
+      <h3>Skills</h3>
+      <ul>
+        <li *ngFor="let skill of resume.skills">{{ skill }}</li>
+      </ul>
+    </div>
+
+    <div class="resume-section" *ngIf="resume.education?.length > 0">
+      <h3>Education</h3>
+      <ul>
+        <li *ngFor="let edu of resume.education">
+          {{ edu.degree }} - {{ edu.institute }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="resume-section" *ngIf="resume.experience?.length > 0">
+      <h3>Experience</h3>
+      <ul>
+        <li *ngFor="let exp of resume.experience">
+          {{ exp.title }} at {{ exp.company }} ({{ exp.years }} years)
+        </li>
+      </ul>
+    </div>
+
+    <div class="resume-section">
+      <h3>Score</h3>
+      <p>Overall Score: {{ resume.overallScore }}</p>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -11,20 +11,51 @@ export class UploadService {
 
   constructor(private http: HttpClient) { }
 
-  // 🔄 Upload a resume
+  // 📤 Upload a resume
   uploadResume(userId: number, formData: FormData): Observable<any> {
     return this.http.post(`${this.baseUrl}/resumes/upload/${userId}`, formData, {
-      responseType: 'text'  // Expect plain text from backend
+      responseType: 'text'
     });
   }
 
-  // 📥 Get all resumes for a user
+  // 📥 Get resumes by user
   getUserResumes(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/resumesByUserId?userId=${userId}`);
+    return this.http.get<any[]>(`${this.baseUrl}/resumes/resumesByUserId/${userId}`);
   }
 
-  // 🗑️ Delete all resumes for a user
+
+  // 🧠 Filter by Skills only
+  getResumesBySkills(userId: number, skills: string[]): Observable<any[]> {
+    const params = new HttpParams()
+      .set('skills', skills.join(','))
+      .set('userId', userId.toString());
+
+    return this.http.get<any[]>(`${this.baseUrl}/resumes/by-skills`, { params });
+  }
+
+  // 🎯 Filter by Skills + Experience
+  getResumesBySkillsAndExperience(userId: number, skills: string[], startExp: number, endExp: number): Observable<any[]> {
+    const params = new HttpParams()
+      .set('userId', userId.toString())
+      .set('skills', skills.join(','))
+      .set('start', startExp.toString())
+      .set('end', endExp.toString());
+
+    return this.http.get<any[]>(`${this.baseUrl}/resumes/by-skills-experience-range`, { params });
+  }
+
   deleteAllResumes(userId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/delete/${userId}`,{ responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/resumes/delete/user/${userId}`, { responseType: 'text' });
+  }
+  deleteSingleResume(userId: number, resumeId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/resumes/delete/user/${userId}/resume/${resumeId}`, { responseType: 'text' });
+  }
+  getResumeImage(resumeId: number): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/resumes/image/${resumeId}`, {
+      responseType: 'blob', // Important to get binary data as Blob
+    });
+  }
+  getResumePreview(userId: number, resumeId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/resumes/preview/${userId}/${resumeId}`);
   }
 }

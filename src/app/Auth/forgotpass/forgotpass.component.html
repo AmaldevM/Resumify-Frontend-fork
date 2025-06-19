@@ -1,45 +1,58 @@
-<div class="container">
-  <div class="left-section">
-    <img
-      src="/assets/images/resume.jpg"
-      alt="resume image"
-      class="resume-img"
-    />
-  </div>
+<!-- Only shows when modal is visible -->
+<div class="modal-backdrop" *ngIf="isModalVisible">
+  <div class="modal-container">
+    <button class="close-btn" (click)="close()">×</button>
 
-  <div class="right-section">
-    <div class="form">
-      <h2>Reset Your Password</h2>
-      <form [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmit()">
-        <!-- Email -->
-        <label>Email</label>
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Enter your Email here"
-        />
-        <div class="error" *ngIf="email?.touched && email?.invalid">
-          <small *ngIf="email?.errors?.['required']">Email is required</small>
-          <small *ngIf="email?.errors?.['email']">Invalid email format</small>
-        </div>
+    <div class="modal-content">
+      <!-- Left Section: Image -->
+      <div class="left-section">
+        <img src="/assets/images/resume.jpg" alt="resume image" class="resume-img" />
+      </div>
 
-        <button id="submit" type="submit">Send Reset Link</button>
-      </form>
-    </div>
+      <!-- Right Section: Form -->
+      <div class="right-section">
+        <h2 *ngIf="step === 'email'">Reset Your Password</h2>
+        <h2 *ngIf="step === 'code'">Enter Verification Code</h2>
+        <h2 *ngIf="step === 'reset'">Set New Password</h2>
 
-    <p>Remembered your password? <a href="/login">Login here</a></p>
+        <!-- Email Form -->
+        <form *ngIf="step === 'email'" [formGroup]="emailForm" (ngSubmit)="sendCode()">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="Enter your email" />
+          <div class="error" *ngIf="email?.touched && email?.invalid">
+            <small *ngIf="email?.errors?.['required']">Email is required</small>
+            <small *ngIf="email?.errors?.['email']">Invalid email</small>
+          </div>
+          <button type="submit" [disabled]="loading">Send Code</button>
+        </form>
 
-    <div class="divider">– OR –</div>
+        <!-- Code Verification Form -->
+        <form *ngIf="step === 'code'" [formGroup]="codeForm" (ngSubmit)="verifyCode()">
+          <label>Verification Code</label>
+          <input type="text" formControlName="code" placeholder="6-digit code" maxlength="6" />
+          <div class="error" *ngIf="codeForm.controls['code'].touched && codeForm.controls['code'].invalid">
+            <small *ngIf="codeForm.controls['code'].errors?.['required']">Code is required</small>
+            <small *ngIf="codeForm.controls['code'].errors?.['pattern']">Enter 6 digits only</small>
+          </div>
+          <button type="submit" [disabled]="loading">Verify Code</button>
+        </form>
 
-    <div class="social-buttons">
-      <button class="go-btn">
-        <img src="assets/images/google.png" alt="Google" />
-        Sign in with Google
-      </button>
-      <button class="gi-btn">
-        <img src="assets/images/linkedin.png" alt="LinkedIn" />
-        Sign in with LinkedIn
-      </button>
+        <!-- Reset Password Form -->
+        <form *ngIf="step === 'reset'" [formGroup]="passwordForm" (ngSubmit)="resetPassword()">
+          <label>New Password</label>
+          <input type="password" formControlName="password" placeholder="New password" />
+          <label>Confirm Password</label>
+          <input type="password" formControlName="confirmPassword" placeholder="Confirm password" />
+          <div class="error" *ngIf="passwordForm.errors?.['mismatch'] && passwordForm.touched">
+            <small>Passwords do not match</small>
+          </div>
+        <button type="submit" [disabled]="loading || passwordForm.invalid">Reset Password</button>
+        </form>
+
+        <!-- Loading and Error Feedback -->
+        <div *ngIf="loading" class="loading">Processing...</div>
+        <div *ngIf="errorMsg" class="error-message">{{ errorMsg }}</div>
+      </div>
     </div>
   </div>
 </div>

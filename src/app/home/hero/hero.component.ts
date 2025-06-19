@@ -4,14 +4,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-hero',
   imports: [MatIconModule,
     MatButtonModule,
-    MatCardModule,],
+    MatCardModule,RouterLink],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss'
 })

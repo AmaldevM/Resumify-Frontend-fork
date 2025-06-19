@@ -1,105 +1,107 @@
-
-
-
 <div class="parser-container">
   <aside class="sidebar">
+    <!-- Upload Section -->
+    <div class="upload-box" (click)="triggerFileUpload()">
+      <p>Click here to <strong>upload your file</strong> or drag</p>
+      <input #fileInput type="file" accept="application/pdf" multiple (change)="onFileSelected($event)"
+        style="display: none" />
+    </div>
     <h3>Uploaded Resumes</h3>
     <div class="resume-list">
       <div class="resume-item" *ngFor="let resume of resumes">
-        <img src="assets/icons/pdf.png" alt="PDF" />
+        <a *ngIf="resume.imageUrl; else pdfIcon" [href]="resume.imageUrl" [download]="resume.name + '.png'"
+          target="_blank">
+          <img [src]="resume.imageUrl" alt="Resume Preview" class="resume-preview" />
+        </a>
+
+        <ng-template #pdfIcon>
+          <img src="assets/icons/pdf.png" alt="PDF Icon" />
+        </ng-template>
+
         <span>{{ resume.name }}-cv.pdf</span>
       </div>
-    </div>
-<div class="upload-box" (click)="triggerFileUpload()">
-  <p>Click here to <strong>upload your file</strong> or drag</p>
 
-  <!-- Hidden file input -->
-  <input
-    #fileInput
-    type="file"
-    accept="application/pdf"
-    (change)="onFileSelected($event)"
-    style="display: none"
-  />
-</div>
+    </div>
+
 
   </aside>
 
   <main class="main-content">
-<div class="controls">
-  <input type="text" [(ngModel)]="searchText" placeholder="Search by name or skill..." />
+    <!-- Filters + Controls -->
+    <div class="controls">
+      <input type="text" [(ngModel)]="searchText" (input)="applyAllFilters()"
+        placeholder="Search by name or skill..." />
 
-  <!-- Sort Button -->
-  <div class="dropdown-wrapper">
-    <button (click)="toggleSortDropdown()">Sort</button>
-    <ul *ngIf="showSortDropdown" class="dropdown">
-      <li (click)="setExperienceRange('0-1')">0 - 1 years</li>
-      <li (click)="setExperienceRange('1-2')">1 - 2 years</li>
-      <li (click)="setExperienceRange('2-3')">2 - 3 years</li>
-      <li (click)="setExperienceRange('3-5')">3 - 5 years</li>
-      <li (click)="setExperienceRange('5+')">5+ years</li>
-    </ul>
-  </div>
+      <!-- Experience Filter -->
+      <div class="dropdown-wrapper">
+        <button (click)="toggleSortDropdown()">Sort</button>
+        <ul *ngIf="showSortDropdown" class="dropdown">
+          <li (click)="setExperienceRange('none')">NONE</li>
+          <li (click)="setExperienceRange('0-1')">0 - 1 years</li>
+          <li (click)="setExperienceRange('1-2')">1 - 2 years</li>
+          <li (click)="setExperienceRange('2-3')">2 - 3 years</li>
+          <li (click)="setExperienceRange('3-5')">3 - 5 years</li>
+          <li (click)="setExperienceRange('5+')">5+ years</li>
+        </ul>
+      </div>
 
-<!-- Filter Button -->
-<div class="dropdown-wrapper">
-  <button (click)="toggleFilterDropdown()">Filter</button>
+      <!-- Skill Filter -->
+      <div class="dropdown-wrapper">
+        <button (click)="toggleFilterDropdown()">Filter</button>
+        <div *ngIf="showFilterDropdown" class="dropdown">
+          <input type="text" [(ngModel)]="skillSearch" (input)="onSkillSearch()" placeholder="Search skill..."
+            class="skill-input" />
 
-  <div *ngIf="showFilterDropdown" class="dropdown">
-    <input
-      type="text"
-      [(ngModel)]="skillSearch"
-      (input)="onSkillSearch()"
-      placeholder="Search skill..."
-      class="skill-input"
-    />
+          <!-- Suggested Skills -->
+          <ul *ngIf="filteredSkillOptions.length > 0" class="suggestions">
+            <li *ngFor="let skill of filteredSkillOptions" (click)="addSkill(skill)">
+              {{ skill }}
+            </li>
+          </ul>
 
-    <!-- Suggested skills -->
-    <ul *ngIf="filteredSkillOptions.length > 0" class="suggestions">
-      <li *ngFor="let skill of filteredSkillOptions" (click)="addSkill(skill)">
-        {{ skill }}
-      </li>
-    </ul>
+          <!-- Selected Chips -->
+          <div class="chip-container">
+            <span *ngFor="let skill of selectedSkills" class="chip">
+              {{ skill }}
+              <button class="remove-btn" (click)="removeSkill(skill)">×</button>
+            </span>
+          </div>
+        </div>
+      </div>
 
-    <!-- Selected skills as chips -->
-    <div class="chip-container">
-      <span *ngFor="let skill of selectedSkills" class="chip">
-        {{ skill }}
-        <button class="remove-btn" (click)="removeSkill(skill)">×</button>
-      </span>
+      <!-- Delete all resumes -->
+      <button class="delete-all" (click)="deleteAll()">Delete All</button>
     </div>
-  </div>
-</div>
 
-  <button class="delete-all" (click)="deleteAll()">clear All</button>
-</div>
-
+    <!-- Resume Table -->
     <table>
       <thead>
         <tr>
           <th>Name</th>
           <th>Phone number</th>
           <th>Email</th>
+          <th>job position</th>
           <th>Skills</th>
           <th>Experience</th>
           <th></th>
         </tr>
       </thead>
-<tbody>
-  <tr *ngFor="let resume of filteredResumes; let i = index">
-    <td>{{ resume.name }}</td>
-    <td>{{ resume.phoneNumber }}</td>
-    <td>{{ resume.email }}</td>
-    <td>
-      <span *ngFor="let skill of resume.skills" class="tag">{{ skill }}</span>
-    </td>
-    <td>{{ resume.yearsOfExperience }} years</td>
-<td>
-  <i class="fa fa-trash delete-icon" (click)="deleteResume(i)"></i>
-</td>
-  </tr>
-</tbody>
+      <tbody>
+        <tr *ngFor="let resume of filteredResumes; let i = index" (click)="goToResumeDetail(resume.id)">
+          <td>{{ resume.name }}</td>
+          <td>{{ resume.phone }}</td>
+          <td>{{ resume.email }}</td>
+          <td>{{resume.jobPosition}}</td>
+          <td>
+            <span *ngFor="let skill of resume.skills" class="tag">{{ skill }}</span>
+          </td>
+          <td>{{ resume.totalExperienceYears }} years</td>
+          <td>
+            <i class="fa fa-trash delete-icon" (click)="deleteResume(i); $event.stopPropagation();"></i>
+          </td>
+        </tr>
 
+      </tbody>
     </table>
   </main>
 </div>

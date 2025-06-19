@@ -2,18 +2,27 @@
   <h2>Ready For Upload!</h2>
 
   <div class="file-box">
-    <img src="https://img.icons8.com/color/96/resume.png" alt="Resume Icon" />
-    <p class="file-name">File Selected: “{{ fileName }}”</p>
-    <p class="ready-text">We are all set! Let’s parse Resume</p>
+    <img src="assets/images/scanning_doc.gif" alt="Resume Icon" />
+
+    <p class="file-name" *ngIf="fileNames.length === 0">No files selected.</p>
+
+    <ul *ngIf="fileNames.length > 0">
+      <li *ngFor="let file of selectedFiles; let i = index">
+        📄 {{ file.name }} ({{ formatFileSize(file.size) }})
+        <button (click)="removeFile(i)">❌</button>
+      </li>
+    </ul>
 
     <label class="select-btn">
-      <input type="file" accept="application/pdf" (change)="onSelectNewFile($event)" hidden />
-      Select new file
+      <input type="file" accept="application/pdf" multiple (change)="onSelectNewFiles($event)" hidden />
+      Select files
     </label>
   </div>
 
   <div class="action-buttons">
     <button class="back-btn" (click)="goBack()">Back</button>
-    <button class="continue-btn" (click)="continue()">Continue</button>
+    <button class="continue-btn" (click)="continue()" [disabled]="selectedFiles.length === 0">
+      Continue
+    </button>
   </div>
 </div>

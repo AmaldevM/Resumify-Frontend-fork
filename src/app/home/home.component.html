@@ -8,90 +8,187 @@
 <!-- ------Down-Sections------ -->
 <div class="resumify-container">
   <div class="content-wrapper">
-    
+
+    <!-- Resume Parser Section -->
     <!-- Resume Parser Section -->
     <section id="resume-parser" class="resume-parser-section">
-      <div class="image-content">
-        <div class="resume-parse-container">
-          <div class="resume-card">
-            <div class="profile-image"></div>
-            <h3>Name</h3>
-            <div class="section">
-              <strong>About</strong>
-              <p class="placeholder-line"></p>
-              <p class="placeholder-line"></p>
-            </div>
-            <div class="section two-column">
-              <div>
-                <strong>Education</strong>
-                <p class="placeholder-line"></p>
-                <p class="placeholder-line"></p>
-                <p class="placeholder-line"></p>
-              </div>
-              <div>
-                <strong>Experience</strong>
-                <p class="placeholder-line"></p>
-                <p class="placeholder-line"></p>
-                <p class="placeholder-line"></p>
-              </div>
-            </div>
-            <div class="section two-column">
-              <div>
-                <strong>Skills</strong>
-                <p class="placeholder-line short"></p>
-                <p class="placeholder-line short"></p>
-              </div>
-              <div>
-                <strong>Languages</strong>
-                <p class="placeholder-line short"></p>
-                <p class="placeholder-line short"></p>
-              </div>
-            </div>
-          </div>
+      <div class="container">
+        <h2 class="section-title">AI-Powered Resume Parser</h2>
+        <p class="section-subtitle">Upload your resume and instantly extract key information</p>
 
-          <div class="parsed-info-card">
-            <h4>Personal Information</h4>
-            <table>
-              <tr>
-                <td><strong>First Name:</strong></td>
-                <td>
-                  <p>Sarah </p>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Last Name:</strong></td>
-                <td>
-                  <p>S M</p>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Phone:</strong></td>
-                <td>
-                  <p>+91 6282237472</p>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Email:</strong></td>
-                <td>
-                  <p>saraha.personal.agmail.com</p>
-                </td>
-              </tr>
-            </table>
-            <h4>Skills</h4>
-            <div class="skills">
-              <span>Angular</span>
-              <span>Java</span>
-              <span>JavaScript</span>
-              <span>Python</span>
-              <span>React.JS</span>
-              <span>Node.JS</span>
-              <span>HTML</span>
-              <span>CSS</span>
-              <span>MySQL</span>
-              <span>Git</span>
-              <span>GitHub</span>
-              <span>Jira</span>
-              <span>Slack</span>
+        <div class="resume-parser-wrapper">
+
+
+          <div class="results-container">
+            <div class="resume-card">
+              <div class="resume-header">
+                <div class="profile-image">
+                  <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Johnson">
+                </div>
+                <div class="candidate-info">
+                  <h3>Sarah Johnson</h3>
+                  <p class="job-title">Senior Software Engineer</p>
+                  <div class="contact-info">
+                    <span><i class="fas fa-map-marker-alt"></i> San Francisco, CA</span>
+                    <span><i class="fas fa-phone"></i> (628) 223-7472</span>
+                    <span><i class="fas fa-envelope"></i> sarah.johnsonaexample.com</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="resume-section">
+                <h4><i class="fas fa-user"></i> About</h4>
+                <p>Innovative software engineer with 7+ years of experience developing scalable web applications.
+                  Specialized in JavaScript frameworks with a passion for creating efficient, user-friendly solutions.
+                  Strong background in full-stack development and team leadership.</p>
+              </div>
+
+              <div class="resume-section two-column">
+                <div>
+                  <h4><i class="fas fa-graduation-cap"></i> Education</h4>
+                  <div class="education-item">
+                    <h5>M.Sc. Computer Science</h5>
+                    <p class="institution">Stanford University</p>
+                    <p class="date">2013 - 2015</p>
+                  </div>
+                  <div class="education-item">
+                    <h5>B.Sc. Software Engineering</h5>
+                    <p class="institution">University of California</p>
+                    <p class="date">2009 - 2013</p>
+                  </div>
+                </div>
+                <div>
+                  <h4><i class="fas fa-briefcase"></i> Experience</h4>
+                  <div class="experience-item">
+                    <h5>Senior Software Engineer</h5>
+                    <p class="company">TechSolutions Inc.</p>
+                    <p class="date">2019 - Present</p>
+                    <ul>
+                      <li>Lead development of customer portal using React/Node.js</li>
+                      <li>Reduced API response time by 40%</li>
+                    </ul>
+                  </div>
+                  <div class="experience-item">
+                    <h5>Software Developer</h5>
+                    <p class="company">WebCraft LLC</p>
+                    <p class="date">2015 - 2019</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="resume-section two-column">
+                <div>
+                  <h4><i class="fas fa-code"></i> Skills</h4>
+                  <div class="skills-container">
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">Docker</span>
+                  </div>
+                </div>
+                <div>
+                  <h4><i class="fas fa-language"></i> Languages</h4>
+                  <div class="languages-container">
+                    <div class="language-item">
+                      <span>English</span>
+                      <div class="proficiency">
+                        <div class="proficiency-level fluent"></div>
+                        <span>Fluent</span>
+                      </div>
+                    </div>
+                    <div class="language-item">
+                      <span>Spanish</span>
+                      <div class="proficiency">
+                        <div class="proficiency-level intermediate"></div>
+                        <span>Intermediate</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="parsed-info-card">
+              <div class="parsed-header">
+                <h3>Extracted Information</h3>
+                <div class="accuracy-badge">
+                  <i class="fas fa-check-circle"></i>
+                  <span>98% Accuracy</span>
+                </div>
+              </div>
+
+              <div class="parsed-section">
+                <h4><i class="fas fa-id-card"></i> Personal Information</h4>
+                <table>
+                  <tr>
+                    <td><strong>Full Name:</strong></td>
+                    <td>Sarah M. Johnson</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Email:</strong></td>
+                    <td>sarah.johnsonaexample.com</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Phone:</strong></td>
+                    <td>(628) 223-7472</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Location:</strong></td>
+                    <td>San Francisco, CA</td>
+                  </tr>
+                  <tr>
+                    <td><strong>LinkedIn:</strong></td>
+                    <td>linkedin.com/in/sarahjohnson</td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="parsed-section">
+                <h4><i class="fas fa-code"></i> Skills</h4>
+                <div class="skills-cloud">
+                  <span class="skill-large">JavaScript</span>
+                  <span class="skill-medium">React</span>
+                  <span class="skill-medium">Node.js</span>
+                  <span class="skill-large">Python</span>
+                  <span class="skill-small">Java</span>
+                  <span class="skill-medium">SQL</span>
+                  <span class="skill-small">AWS</span>
+                  <span class="skill-small">Docker</span>
+                  <span class="skill-small">Git</span>
+                  <span class="skill-small">REST APIs</span>
+                  <span class="skill-small">Agile</span>
+                  <span class="skill-small">CI/CD</span>
+                </div>
+              </div>
+
+              <div class="parsed-section">
+                <h4><i class="fas fa-briefcase"></i> Experience Summary</h4>
+                <div class="experience-summary">
+                  <div class="exp-item">
+                    <div class="exp-duration">4+ years</div>
+                    <div class="exp-details">
+                      <strong>Senior Software Engineer</strong>
+                      <p>TechSolutions Inc.</p>
+                    </div>
+                  </div>
+                  <div class="exp-item">
+                    <div class="exp-duration">4 years</div>
+                    <div class="exp-details">
+                      <strong>Software Developer</strong>
+                      <p>WebCraft LLC</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-buttons">
+                <button class="btn btn-download"><i class="fas fa-file-export"></i> Export as JSON</button>
+                <button class="btn btn-apply"><i class="fas fa-paper-plane"></i> Apply to Job</button>
+              </div>
             </div>
           </div>
         </div>
@@ -214,15 +311,15 @@
       </div>
 
       <div class="features">
-        <div class="feature">
+        <div class="feature1">
           <h3>High Accuracy at Speed</h3>
           <p>Our resume parser extracts 200+ key data points in seconds...</p>
         </div>
-        <div class="feature">
+        <div class="feature2">
           <h3>Multiple Formats</h3>
           <p>You can parse resumes in PDF, DOC, DOCX, IMG, TXT, HTML...</p>
         </div>
-        <div class="feature">
+        <div class="feature3">
           <h3>Integrate your ATS</h3>
           <p>
             Our resume parser API integrates seamlessly with your HRIS, ATS...

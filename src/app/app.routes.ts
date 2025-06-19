@@ -25,7 +25,7 @@ export const routes: Routes = [
   { path: 'careers', loadComponent: () => import('./home/footer/footer-pages/careers/careers.component').then(m => m.CareersComponent) },
   { path: 'pricing', loadComponent: () => import('./home/footer/footer-pages/pricing/pricing.component').then(m => m.PricingComponent) },
   { path: 'blog', loadComponent: () => import('./home/footer/footer-pages/blog/blog.component').then(m => m.BlogComponent) },
-  { path: 'press', loadComponent: () => import('./home/footer/footer-pages/press/press.component').then(m => m.PressComponent) },
+
 
   // ✅ Feature routes with lazy loading + auth guard
   {
@@ -36,6 +36,13 @@ export const routes: Routes = [
       ),
     canActivate: [AuthGuard]
   },
+  // ✅ Resume Preview route (new)
+  {
+    path: 'resume-preview/:id',
+    loadComponent: () => import('./profileview/profileview.component').then(m => m.ProfileviewComponent),
+    canActivate: [AuthGuard]
+  }
+  ,
   {
     path: 'parsedresumes',
     loadComponent: () =>

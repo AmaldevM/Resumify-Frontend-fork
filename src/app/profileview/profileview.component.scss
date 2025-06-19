@@ -1,0 +1,54 @@
+.resume-preview-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.resume-card {
+  width: 70%;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 255, 100, 0.2);
+}
+
+.resume-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  img {
+    width: 100px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+
+  p {
+    margin: 0.2rem 0;
+  }
+}
+
+.resume-section {
+  margin-top: 1.5rem;
+
+  h3 {
+    color: #00ff88;
+    margin-bottom: 0.5rem;
+  }
+
+  ul {
+    padding-left: 1.2rem;
+    list-style-type: disc;
+
+    li {
+      margin-bottom: 0.3rem;
+    }
+  }
+}
